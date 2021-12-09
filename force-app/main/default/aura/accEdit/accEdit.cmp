@@ -9,8 +9,8 @@
     targetRecord="{!v.record}"
     targetFields ="{!v.accountRecord}"
     mode="EDIT" />
-    <!-- Display an editing forms -->
-    <lightning:card iconName="action:edit" title="Edit Account">
+    <!-- Display an editing forms Update--> 
+    <lightning:card iconName="action:edit" title="Edit Accounts">
         <div class="slds-p-horizontal--small">
             <lightning:input label="Account Name" value="{!v.accountRecord.Name}"/>
             <br/>

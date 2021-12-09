@@ -1,0 +1,3 @@
+<aura:event type="APPLICATION" description="Event template">
+	<aura:attribute name="employee" type="Employee__c" />
+</aura:event>

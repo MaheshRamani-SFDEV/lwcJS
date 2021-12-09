@@ -1,0 +1,5 @@
+<aura:component>	
+        <c:AccountTable1 />
+        <br/>
+        <c:AccountTable2 />
+</aura:component>

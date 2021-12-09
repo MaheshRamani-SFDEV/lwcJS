@@ -1,0 +1,31 @@
+<aura:component >
+    <!--aura:attribute name="activeSections" type="List" default="['Description','Tab','Button','Note']" /-->
+    <aura:attribute name="activeSections" type="List" default="[]" />
+    <aura:attribute name="activeSectionsMessage" type="String" default="" />
+    <lightning:accordion allowMultipleSectionsOpen="true" onsectiontoggle="{! c.handleSectionToggle }" activeSectionName="{! v.activeSections }">
+        <lightning:accordionSection name="Description" label="Tool Description">
+            <ul><b>A.</b> Big Object Data viewer utility tool empowers users to view selected Big Object Records in the salesforce Org.<br/> 
+                <b>B.</b> User can apply condition on index fields in Select Criteria Tab and refresh records view.<br/>
+                <b>C.</b> User can add/remove columns depending upon choice in columns View Tab and refresh records view.</ul>
+        </lightning:accordionSection>
+        <lightning:accordionSection name="Tab" label="Tabs Usage Guidelines">
+            <p><b>About:-</b> Select the Big Object for which user trying to view records</p> 
+            <p><b>Select Criteria:-</b> Select Criteria for filtering record view based on big object index fields</p>
+            <p>*Note:- Build an index query starting from the first field defined in the index, without gaps between the first and last field in the query. You can use any of below operator on the last field in your query, Any prior fields in your query can only use the equal-to operator.</p><pre>Equal-To, Less-Than, Greater-Than, Less-Than-Equal-To, Greater-Than-Equal-To Or IN </pre>
+            <p><b>Select Columns:-</b> Select Columns from the Big object for specific fields view in table.</p>
+            <p><b>Records View:-</b> Refined Filters will show Big object data on the Records View tab.</p>
+        </lightning:accordionSection>            
+        <lightning:accordionSection name="Button" label="Buttons Usage Guidelines"> 
+            <p><b>Next:-</b> To view Next Tab </p>
+            <p><b>Back:-</b> To View Previous Tab</p>
+            <p><b>Reset Filters:-</b> To Reset Selected Filter Criteria</p> 
+            <p><b>Referesh Records View:-</b> To Refresh Records View Directly from Select Criteria Tab and Select Columns Tab</p>            
+        </lightning:accordionSection>
+        <lightning:accordionSection name="Note" label="Important Notes">
+            <p>	1. In case of no criteria selected, Records View Tab will show first 2000 Records of selected Big Object<br/>
+            	2. In case of no columns selected, Records View Tab will show all available fields of Big Object in Table</p>	
+        </lightning:accordionSection>
+    </lightning:accordion>
+    <br/><br/>
+	<p><b>*User Attention:-</b> Please select <b>Big Object</b> for which records required to view and proceed ahead by click on <b>Next Button</b></p>  
+</aura:component>

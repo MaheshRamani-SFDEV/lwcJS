@@ -1,0 +1,45 @@
+<template>
+    <template if:true={isLoadingFinish}>
+      <div class="slds-grid slds-wrap">
+        <div class="slds-col slds-size_12-of-12 slds-box slds-box_small slds-theme_shade">   
+          <lightning-icon icon-name="standard:scan_card" size="medium" alternative-ext="OCR Tool" title="OCR Tool" ></lightning-icon>
+          <b class="slds-p-around_small slds-text-heading_medium">Einstein Vision OCR: Image Data Extract Tool</b>
+          <div class="slds-col slds-size_12-of-12 slds-box slds-box_small slds-theme_default slds-m-top_x-small">
+            <div class="slds-grid">
+              <div class="slds-col slds-size_6-of-12">
+                <c-einstein-image-category-pick-list
+                  field-a-p-i-name="ImageType__c" 
+                  obj-a-p-i-name="EinsteinOCRTemplateMapping__c"
+                  onselected={handleSelectedValue}>
+                </c-einstein-image-category-pick-list>
+              </div>
+              <div class="slds-col slds-size_6-of-12">
+                <c-einstein-ocr-file-upload 
+                  is-image-category-selected={isImageCategorySelected}
+                  is-file-uploaded={isFileUploaded} 
+                  record-id={recordId}
+                  image-category={imageCategoryValue}
+                  onupload={handleFileUploadSuccess}>
+                </c-einstein-ocr-file-upload>
+              </div>
+            </div>
+            <template if:true={isFileUploaded}>
+              <c-einstein-ocr-extracted-data-viewer
+                image-category={imageCategoryValue}
+                is-data-extracted={isDataExtracted} 
+                record-id={recordId}
+                oncancel={handleCancel}>
+              </c-einstein-ocr-extracted-data-viewer>
+            </template>
+          </div>
+        </div>
+      </div>
+    </template>
+    <template if:false={isLoadingFinish}>
+      <div class="slds-grid slds-wrap">
+        <div class="slds-col slds-size_12-of-12 slds-box slds-box_small slds-theme_default"> 
+          <lightning-spinner alternative-text="Loading" variant="brand" size="large" style="position:fixed"></lightning-spinner>
+        </div>
+      </div>
+    </template>
+  </template>

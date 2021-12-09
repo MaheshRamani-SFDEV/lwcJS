@@ -1,0 +1,61 @@
+<!--@ Purpose       : Lightning Component for View of Related Notes.
+@ Call By           : NA
+@ Plan Release      : M11 
+@ Author            : Mahesh Ramani
+@ Initial version   : Salesforce.com API 47.0
+/*************************************************************************************************************************
+VERSION        DATE         Developer                      DESCRIPTON 
+1.0            NA           NA                             Baseline Version
+**************************************************************************************************************************/
+-->
+<aura:component controller="LC_NoteRecordController" 
+                implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes" 
+                access="global" >
+    
+    <aura:attribute name="recordId" type="string" />
+    <aura:attribute name="url" type="String"/>
+    <aura:attribute name="saveClicked" type="boolean" default="false" />
+    <!--aura:attribute name="isCreateNote" type="boolean" default="false" /-->
+    <aura:attribute name="isViewNote" type="boolean" default="false" />
+    <aura:attribute name="noRelatedNote" type="boolean" default="false" />
+    <aura:attribute name="haveNoteForView" type="boolean" default="false" />	
+    <aura:attribute name="notes" type="Note[]"/>
+    <aura:attribute name="mycolumns" type="List"/>    
+    
+    <aura:handler name="change" value="{!v.recordId}" action="{!c.doInit}"/>
+     
+    <lightning:layout horizontalAlign="spread" class="slds-page-header slds-page-header--object-home">
+        <lightning:layoutItem>
+            <div class="header-text" >
+                <lightning:icon iconName="standard:note" size="medium" alternativeText="Notes" />
+                <b class="slds-m-right_medium slds-p-around_small slds-text-heading_medium">Notes</b>
+            </div>
+        </lightning:layoutItem >        
+        <lightning:layoutItem >           
+            <lightning:button aura:id="refreshButton" label="Refresh" title="Brand action" onclick="{! c.doInit }" />
+            <lightning:button variant="brand" label="New" title="Brand action" onclick="{! c.createNote }"/>
+        </lightning:layoutItem>
+    </lightning:layout> 
+    <div aura:id="showTable" class="slds-hide">
+<!--aura:if isTrue="{!v.isCreateNote}"-->        
+                <lightning:datatable data="{! v.notes }" 
+                                     class="table-View"
+                                     columns="{! v.mycolumns }" 
+                                     keyField="id"
+                                     hideCheckboxColumn="true"/>
+        <!--/aura:if -->
+    </div>
+    <div aura:id="showRelatedNote" class="slds-hide">
+    <!--aura:if isTrue="{!v.noRelatedNote}"-->
+        <div class="page-section page-header"><br/><br/><br/><br/><br/><br/>
+            <h1 class="slds-text-heading_small slds-text-align_center">There are no related notes for this record!</h1>
+        </div>
+    <!--/aura:if-->
+    </div>
+    <div aura:id="showChild" class="slds-hide">
+    <!--aura:if isTrue="{!v.isCreateNote}"-->
+        <c:CreateNote ParentId="{!v.recordId}" isCreateNote="{!v.isCreateNote}" isViewNote="{!v.isViewNote}" noRelatedNote="{!v.noRelatedNote}" haveNoteForView="{!v.haveNoteForView}" saveClicked="{!v.saveClicked}" fetchNoteRecord="{!c.doInit}"  />
+    	<!--c:lwc_CreateNote ParentId="{!v.recordId}" isCreateNote="{!v.isCreateNote}" isViewNote="{!v.isViewNote}" noRelatedNote="{!v.noRelatedNote}" haveNoteForView="{!v.haveNoteForView}" saveClicked="{!v.saveClicked}" fetchNoteRecord="{!c.doInit}"  /> -->   
+        <!--/aura:if-->
+    </div>
+</aura:component>

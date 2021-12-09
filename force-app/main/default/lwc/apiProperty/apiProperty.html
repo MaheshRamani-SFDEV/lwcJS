@@ -1,0 +1,6 @@
+<!-- apiProperty.html -->
+<template>
+    <lightning-input label="Percentage" type="number" min="0" max="100"
+        value={percentage} onchange={handlePercentageChange}></lightning-input>
+    <c-chart-bar percentage={percentage}></c-chart-bar>
+</template>

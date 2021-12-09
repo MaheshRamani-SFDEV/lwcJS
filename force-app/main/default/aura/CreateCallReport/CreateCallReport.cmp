@@ -1,0 +1,6 @@
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickActionWithoutHeader" 
+                access="global" 
+                controller="LC_CreateCallReportController"  >
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:attribute name="destObjName" Type="String" default="Call_Report__c" />
+</aura:component>

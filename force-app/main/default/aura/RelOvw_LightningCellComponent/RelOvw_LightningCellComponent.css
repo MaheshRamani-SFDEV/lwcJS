@@ -1,0 +1,26 @@
+.THIS.slds-theme_success .slds-form-element__label {
+    color: #ffffff;
+}
+.THIS.slds-theme_success .slds-text-title {
+    color: #ffffff;
+}
+.THIS {
+    background-color:#fff}
+.THIS.displayhover{
+    
+    
+    
+    display: -webkit-box  !important;
+    -webkit-line-clamp: none !important; /* Limit to 3 lines */
+    -webkit-box-orient: vertical  !important;
+    
+}
+.THIS.white {
+    
+    
+    width:125px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1; /* Limit to 3 lines */
+    -webkit-box-orient: vertical;
+}

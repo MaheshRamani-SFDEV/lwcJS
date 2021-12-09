@@ -1,0 +1,142 @@
+<template>    
+    <div class="slds-box slds-box_small slds-theme_default">
+        <template if:true={isLoadingFinish}>
+        <div class="slds-grid slds-wrap">
+            <div class="slds-col slds-size_12-of-12 slds-box slds-box_small slds-theme_shade slds-m-bottom_x-small">   
+                <lightning-icon icon-name="standard:record_update" size="small" alternative-ext="record_update" title="Record_Update" ></lightning-icon>
+                <b class="slds-p-left_small slds-text-heading_small">{setTheObjectName2} Update</b>
+                </br>
+                <b>Instruction:</b>Select wheather to use data from Lead Record or keep existing data.
+            </div>
+        </div>
+        <template if:true={isRequiredFieldEmpty}>
+            <div  class="slds-col slds-size_12-of-12 slds-p-vertical_small" data-id="errorNotificationContainer">
+                <div class="slds-size_12-of-12 genericErrorNotification" style="background-color: #C23934;border-radius:0.25rem;font-weight:300; font-size:1rem;">Review the errors on this page.</div>
+                <div class="slds-size_12-of-12 slds-p-around_small" style="color:#C23934;">
+                    {requiredFieldsMessage}
+                </div>
+            </div>
+        </template>
+        <div class="slds-box slds-box_small slds-theme_shade slds-m-bottom_x-small"> 
+            <div class="slds-grid slds-wrap">
+                <!-- START FIRST ROW -->
+                <div class="slds-col slds-size_3-of-12">
+                    <span></span>
+                </div>
+                <div class="slds-col slds-size_4-of-12">
+                    <span class="slds-text-heading_small">{setTheObjectName1}</span>
+                </div>
+                <div class="slds-col slds-size_1-of-12">
+                        <span></span>
+                    </div>
+                <div class="slds-col slds-size_4-of-12">
+                    <span class="slds-text-heading_small">{setTheObjectName2}</span>
+                </div>
+                <!-- END FIRST ROW -->
+                <!-- START SECOND ROW -->
+                <div class="slds-col slds-size_3-of-12"></div>
+                <div class="slds-col slds-size_4-of-12">
+                    <span class="slds-text-link" onclick={selectAllRecord1Data}>                
+                        Select All                  
+                    </span>
+                </div> 
+                <div class="slds-col slds-size_1-of-12">
+                        <span></span>
+                    </div>            
+                <div class="slds-col slds-size_4-of-12" onclick={selectAllRecord2Data}>
+                    <span class="slds-text-link">                 
+                        Select All                
+                    </span>
+                </div>
+            </div>
+            <!--  END SECOND ROW-->  
+            <!-- START DYNAMIC DATA TABLE ROW -->
+            <div class="slds-grid slds-wrap">
+                <template if:true={compareFields}>
+                    <template for:each={compareFields} for:item="cf" > 
+                        <div class="slds-col slds-size_3-of-12 slds-m-bottom_x-small" key={cf.id}>
+                            <span>
+                                <template if:true={cf.isRequired}>
+                                    <abbr class="slds-required" title="required">*</abbr>
+                                </template>
+                            </span>
+                            <span>{cf.compareRecord.Label}</span>
+                            <template if:true={cf.hasHelpText}>
+                                <span>
+                                    <lightning-helptext icon-name="utility:info"  content={cf.helpText}></lightning-helptext>
+                                </span>
+                            </template>
+                        </div>
+                        <div class="slds-col slds-grid slds-size_4-of-12 slds-m-bottom_x-small" key={cf.id}>
+                            <div class="slds-col slds-size_1-of-12">  
+                                <lightning-input type="radio" disabled={cf.compareRecord.Is_Reference_Field__c} checked={cf.isField1Selected} id={cf.id} value={cf.id} onchange={handleValue1Select}></lightning-input>
+                            </div>
+                            <div class="slds-col slds-size_11-of-12">  
+                                <template if:true={cf.compareRecord.Is_Object1_Field_Editable__c}> 
+                                    <lightning-record-edit-form
+                                        record-id={setTheCompareRecord1}                   
+                                        object-api-name={setTheObjectName1}
+                                        density="compact">
+                                        <lightning-input-field  style="border-color: #C23934;" field-name={cf.compareRecord.Object1_Field_API__c} name={cf.field1Name} variant= "label-hidden" ></lightning-input-field>
+                                    </lightning-record-edit-form>                   
+                                </template>        
+                                <template if:false={cf.compareRecord.Is_Object1_Field_Editable__c}>
+                                    <lightning-record-edit-form
+                                        record-id={setTheCompareRecord1}                   
+                                        object-api-name={setTheObjectName1}
+                                        density="compact">             
+                                        <lightning-input-field disabled field-name={cf.compareRecord.Object1_Field_API__c} name={cf.field1Name} variant="label-hidden" ></lightning-input-field>
+                                    </lightning-record-edit-form>
+                                </template>  
+                            </div>
+                        </div>
+                        <div class="slds-col slds-size_1-of-12 slds-m-bottom_x-small" key={cf.id}>
+                            <span></span>
+                        </div>
+                        <div class="slds-col slds-grid slds-size_4-of-12 slds-m-bottom_x-small" key={cf.id}>
+                            <div class="slds-col slds-size_1-of-12">
+                                <lightning-input type="radio" checked={cf.isField2Selected} id={cf.id} value={cf.id} onchange={handleValue2Select}></lightning-input>
+                            </div>
+                            <div class="slds-col slds-size_11-of-12">   
+                                <template if:true={cf.compareRecord.Is_Object2_Field_Editable__c}> 
+                                    <lightning-record-edit-form
+                                        record-id={setTheCompareRecord2}                   
+                                        object-api-name={setTheObjectName2}
+                                        density="compact">            
+                                        <lightning-messages></lightning-messages>                
+                                        <lightning-input-field  field-name={cf.compareRecord.Object2_Field_API__c} name={cf.field2Name} variant= "label-hidden" ></lightning-input-field>
+                                    </lightning-record-edit-form>  
+                                </template>
+                                <template if:false={cf.compareRecord.Is_Object2_Field_Editable__c}>
+                                    <lightning-record-edit-form
+                                        record-id={setTheCompareRecord2}                   
+                                        object-api-name={setTheObjectName2}
+                                        density="compact">                    
+                                        <lightning-messages></lightning-messages>                
+                                        <lightning-input-field disabled field-name={cf.compareRecord.Object2_Field_API__c} name={cf.field2Name} variant="label-hidden" ></lightning-input-field>
+                                    </lightning-record-edit-form>
+                                </template>
+                            </div>
+                        </div>
+                    </template>
+                </template>
+                <!-- END DYNAMIC DATA TABLE ROW -->
+            </div>
+            <div class="slds-grid slds-wrap">
+                <div class="slds-col slds-size_12-of-12 slds-align_absolute-center" key={createField}>
+                    <lightning-button class="slds-m-around_xx-small" label="Save &amp; Continue" onclick={handleSave} variant="brand"></lightning-button>
+                    <lightning-button class="slds-m-around_xx-small" label="Return to Search" onclick={handleReturn} variant="brand"></lightning-button>
+                    <lightning-button class="slds-m-around_xx-small" label="Cancel" onclick={handleCancel} variant="brand"></lightning-button>
+                </div>
+            </div>
+        </div>
+        </template>
+        <template if:false={isLoadingFinish}>
+            <div class="slds-grid slds-wrap">
+                <div class="slds-col slds-size_12-of-12 slds-box slds-box_small slds-theme_default"> 
+                <lightning-spinner alternative-text="Loading" variant="brand" size="large" style="position:fixed"></lightning-spinner>
+                </div>
+            </div>
+        </template>
+    </div>
+</template>

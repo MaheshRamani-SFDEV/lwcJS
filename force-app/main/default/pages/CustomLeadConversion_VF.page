@@ -1,0 +1,78 @@
+<apex:page standardController="Lead" extensions="LeadConversionVFController">    
+    <apex:includeLightning />
+    <apex:includeScript value="/support/console/46.0/integration.js"/>
+    <div id="lwcDemo"/>
+    <script>
+    var recordId = "{!$CurrentPage.parameters.id}";
+    var userContext = "{!$User.UIThemeDisplayed}";
+	console.log('what is user context>>>>'+userContext);
+    $Lightning.use("c:CustomLeadConversion_App", function() {
+        $Lightning.createComponent("c:customLeadContainer", 
+                                   { "recordId" : recordId,
+                                    "containerContext" : "Visualforce"
+                                   },
+                                   "lwcDemo",
+                                   function(component) {
+                                   }
+                                  );
+    });
+    document.addEventListener("showToastMsg", function(event){
+        if(userContext == 'Theme4d' || userContext == 'Theme4t' || userContext == 'Theme4u'){ 
+        	if(event.detail.isSearchLimitExceed){
+                sforce.one.showToast({
+                    "title" : "Search Warning",
+                    "message" : event.detail.msgDetail,
+                    "type" :"warning"
+                })
+        	}
+            if(event.detail.isLeadConverted){
+                sforce.one.showToast({
+                    "title" : "Success",
+                    "message" : event.detail.msgDetail,
+                    "type" : "success"
+                })
+            }        
+            if(event.detail.isServerError){
+                sforce.one.showToast({
+                    "title" : "Error",
+                    "message" : event.detail.msgDetail,
+                    "type" : "error",
+                    "mode" : "Sticky"
+                })
+            }
+            if(event.detail.isClientWarning){
+                sforce.one.showToast({
+                    "title" : "Warning",
+                    "message" : event.detail.msgDetail,
+                    "type" : "warning"
+                })
+        	}
+        }else if(userContext == 'Theme3'){
+            if(event.detail.isSearchLimitExceed){
+				alert(event.detail.msgDetail);
+			}
+        	if(event.detail.isLeadConverted){            
+				alert(event.detail.msgDetail);
+			}       
+        	if(event.detail.isServerError){
+				alert(event.detail.msgDetail);
+			}
+        	if(event.detail.isClientWarning){            
+				alert(event.detail.msgDetail);
+			}
+    	}
+    });
+    document.addEventListener("createRecord", function(event){
+        if(userContext == 'Theme4d' || userContext == 'Theme4t' || userContext == 'Theme4u'){ 
+            sforce.one.createRecord(event.detail.objectApiName, event.detail.recordTypeId, event.detail.defaultFieldValues);
+        }else if(userContext == 'Theme3'){
+            Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.LeadConversionVFController.fieldValueMappingForURL}',
+            event.detail.objectApiName,event.detail.recordTypeId,event.detail.defaultFieldValues, function(result, event){
+                const parseResult = new DOMParser().parseFromString(result, "text/html");
+				const parsedUrl = parseResult.documentElement.textContent;
+                window.open(parsedUrl, "_self");
+            });            
+        }                       
+    });
+    </script>
+</apex:page>

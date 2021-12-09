@@ -1,0 +1,55 @@
+<aura:component access="global">
+    <aura:attribute name="record" type="sObject" description="record which is being displayed"/>
+    <aura:attribute name="field" type="FieldSetMember" description="field object which is being rendered"/>
+    <aura:attribute name="cellValue" type="Object"/>
+    <aura:attribute name="sObjectName" type="String"/>
+    <aura:attribute name="isCheckboxField" type="boolean" default="false"/>
+    <aura:attribute name="isReferenceField" type="boolean" default="false"/>  
+    <aura:attribute name="isDateTimeField" type="boolean" default="false"/>
+    <aura:attribute name="isCurrencyField" type="boolean" default="false"/>
+    <aura:attribute name="theme" type="boolean"/><!--Added for ST001377 -->
+    <aura:attribute name="flag" type="boolean" default="false"/>
+    <aura:attribute name="url" type="String" />   
+    <aura:attribute name="linkId" type="boolean" default=""/> 
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:attribute name="isCustomUrl" type="boolean" default="false"/>
+    <aura:attribute name="isPercent" type="boolean" default="false"/>
+    <aura:attribute name="customUrlLink" type="String"/>
+    <aura:attribute name="customUrlValue" type="String"/>
+    
+   
+    
+    <aura:if isTrue="{!!(v.isCheckboxField || v.isReferenceField || v.isDateTimeField||v.isCurrencyField || v.isPercent)}">                
+        <ui:outputText value="{!v.cellValue}" title="{!v.cellValue}"  mouseover="{!c.onMouseOver}" class="white" aura:id="imgOver" />
+    </aura:if>
+    <aura:if isTrue="{!v.isCheckboxField}">                
+        <ui:outputCheckbox aura:id="checkbox" value="{!v.cellValue}" />
+    </aura:if>
+    <!-- Start code updated for ST1377-->
+    <aura:if isTrue="{!and(v.isReferenceField, v.theme)}">
+        <!--ui:outputURL value="{! 'https://'+v.url+'/'+v.linkId }" target="_blank" label="{!v.cellValue}"/-->        
+        <lightning:formattedurl value="{! 'https://'+v.url+'/'+v.linkId }" target="_parent" label="{!v.cellValue}"/>         
+    </aura:if>
+    <aura:if isTrue="{!and(v.isReferenceField, !v.theme)}">
+        <lightning:formattedurl value="{! 'https://'+v.url+'/'+v.linkId }" target="_blank" label="{!v.cellValue}"/>
+    </aura:if>
+    <!-- End code updated for ST1377-->
+    <aura:if isTrue="{!v.isDateTimeField}">
+        <ui:outputDateTime value="{!v.cellValue}" format="MM/dd/yyyy HH:MM"/>    
+    </aura:if>
+    <aura:if isTrue="{!v.isCurrencyField}">
+                <ui:outputCurrency value="{!v.cellValue}"/>
+            </aura:if>
+    <!-- Start code updated for ST1377-->
+    <aura:if isTrue="{!and(v.isCustomUrl, v.theme)}">
+        <!--ui:outputURL value="{!v.customUrlValue}" target="_blank" label="{!v.customUrlLink}"/-->
+        <lightning:formattedurl value="{! 'https://'+v.url+'/'+v.linkId }" target="_parent" label="{!v.cellValue}"/>
+    </aura:if>
+    <aura:if isTrue="{!and(v.isCustomUrl, !v.theme)}">
+    	<lightning:formattedurl value="{! 'https://'+v.url+'/'+v.linkId }" target="_blank" label="{!v.cellValue}"/>       
+ 	</aura:if>
+    <!-- End code updated for ST1377-->
+    <aura:if isTrue="{!v.isPercent}">
+    <lightning:formattedNumber value="{!v.cellValue}" style="percent" maximumFractionDigits="2" minimumFractionDigits="2" />
+    </aura:if>
+</aura:component>

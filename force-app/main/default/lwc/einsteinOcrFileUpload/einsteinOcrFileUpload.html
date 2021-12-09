@@ -1,0 +1,53 @@
+<template>
+    <template if:true={isLoadingFinish}>
+        <div class="slds-grid slds-wrap">
+            <div class="slds-col slds-size_12-of-12 slds-box slds-box_small slds-theme_shade">   
+                <lightning-icon icon-name="custom:custom40" size="small" alternative-ext="Upload" title="Upload" ></lightning-icon>
+                <b class="slds-p-around_small slds-text-heading_small">File Upload Section</b>
+                <div class="slds-col slds-size_12-of-12 slds-box slds-box_small slds-theme_default slds-m-top_x-small">
+                    <b>Instruction: </b> Keep filename same as selected file category before upload!
+                    </br>
+                    <template if:true={isImageCategorySelected}>
+                        <lightning-file-upload
+                            label="Attach File"
+                            name="fileUploader"
+                            accept={acceptedFormats}
+                            record-id={recordId}
+                            onuploadfinished={handleUploadFinished}
+                            multiple>
+                        </lightning-file-upload>
+                    </template>
+                    <template if:false={isImageCategorySelected}>
+                        <lightning-file-upload
+                            label="Attach File"
+                            name="fileUploader"
+                            accept={acceptedFormats}
+                            record-id={recordId}
+                            onuploadfinished={handleUploadFinished}
+                            multiple
+                            disabled>
+                        </lightning-file-upload>
+                    </template>    
+                    </br>
+                    <template if:false={isFileUploaded}>
+                        <div class="slds-align_absolute-center slds-p-around_x-small">
+                            No attachment found!
+                        </div>
+                    </template>
+                    <template if:true={isFileUploaded}>
+                        <div class="slds-align_absolute-center slds-p-around_x-small">
+                            <b>{uploadedFileNames} : </b> uploaded successfully!
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </div>
+    </template>
+    <template if:false={isLoadingFinish}>
+        <div class="slds-grid slds-wrap">
+            <div class="slds-col slds-size_12-of-12 slds-box slds-box_small slds-theme_default"> 
+            <lightning-spinner alternative-text="Loading" variant="brand" size="large" style="position:fixed"></lightning-spinner>
+            </div>
+        </div>
+    </template>
+</template>

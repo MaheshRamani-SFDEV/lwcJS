@@ -1,0 +1,20 @@
+<apex:page controller="display">
+    <apex:form >
+      <apex:selectList size="1" value="{!country}">
+      <apex:actionSupport event="onchange" action="{!selectcountry}"/>          
+          <apex:selectOptions value="{!picklistvalues}">
+          </apex:selectOptions>
+      </apex:selectList>
+      <apex:pageBlock >
+       <apex:pageBlockSection title="Indiaaaaa" rendered="{!Ind}">
+           <b>India is a developing country <b>its is good</b></b>
+       </apex:pageBlockSection>
+       <apex:pageBlockSection title="Australia" rendered="{!Aus}">
+           <b>Australia is a continent</b>
+       </apex:pageBlockSection>
+       <apex:pageBlockSection title="USA" rendered="{!Usa}">
+           <b>USA is a developed country</b>
+       </apex:pageBlockSection>
+      </apex:pageBlock>
+    </apex:form>      
+</apex:page>

@@ -1,0 +1,5 @@
+<design:component>
+	<design:attribute name="sObjectName" label="Object Name" description="provide object name for which record needs to view in table" />
+    <design:attribute name="fieldSetName" label="Field Set Name" description="provide filedset name for viewing specific column in table. Create Field set in org before naming it" />
+    <design:attribute name="numberOfRecord" label="Number Of Record" description="provide numbr of records for viewing in table" />
+</design:component>

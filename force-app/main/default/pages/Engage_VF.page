@@ -1,0 +1,13 @@
+<apex:page StandardController="Contact" recordSetVar="Contacts" extensions="contactSetExt" lightningStyleSheets="true" action="{!goToHelloWorldPage}" >  
+	<!--apex:pageMessages ></apex:pageMessages-->
+  <script language = "JavaScript">
+    	window.onload = showAlert();        
+        function showAlert() {
+            var ErrorMessage = 'Please Select atleast one Record to Engage';   
+            if('{!$CurrentPage.parameters.emails}' == '') {
+                alert(ErrorMessage);
+                window.history.back();
+            }
+        }
+    </script>
+</apex:page>

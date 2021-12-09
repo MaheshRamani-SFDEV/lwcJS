@@ -1,0 +1,24 @@
+<aura:component controller="AttributeController" >
+    <aura:attribute name="attributeArray" type="String[]" default="{'Mahesh', 'Vijay', 'Akanksha'}" />
+    <aura:iteration items="{!v.attributeArray}" var="name">
+        {!name}<br />
+    </aura:iteration>
+    <lightning:button onclick="{!c.updateAttributeArray}" label="Update" />
+   
+    <!--conditional button display logic-->
+    <aura:attribute name="edit" type="Boolean"  default="true"/>
+    <aura:if isTrue="{!v.edit}">
+    <ui:button label="Edit"/>
+    <aura:set attribute="else">
+        <ui:button label="Delete" />
+    </aura:set>
+    </aura:if>
+    {!$Browser.formFactor}
+	
+    <!--like button implementation -->
+    <aura:attribute name="liked" type="Boolean" default="true"/>
+    <lightning:button aura:id="likeBtn"
+    label="{!(v.liked) ? 'Like It' : 'Unlike It'}"
+    onclick="{!(v.liked) ? c.likeIt : c.unlikeIt}"
+    />
+</aura:component>

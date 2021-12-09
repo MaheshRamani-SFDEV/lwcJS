@@ -1,0 +1,5 @@
+<design:component>
+    <design:attribute name="sObjectName" label="Object Name" description="Please put the Sobject details for displaying data of the related hierarchy account." />
+    <design:attribute name="fieldSetName" label="Fieldset Name" description="Please put the Feildset details of the Sobject mentioned above." />
+    <design:attribute name="NumberOfRecords" label="NumberOfRecordToDisplay" description="Please put the Number for allowing to display." />
+</design:component>

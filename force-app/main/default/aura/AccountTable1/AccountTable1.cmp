@@ -1,0 +1,43 @@
+<aura:component controller="AccountListController"><!--Server-Side/Apex Controller-->	
+    <ltng:require styles="{!$Resource.SLDS001 + '/assets/styles/salesforce-lightning-design-system.css'}"/>
+    <aura:handler name="init" value="{!this}" action="{!c.getAccountTable1View}" /><!--Client-side Controller-->
+    <aura:attribute name="accounts" type="Account[]"/><!--List Of Account-->  
+
+    <aura:registerEvent name="addAccount" type="c:addAccount"/>
+    <aura:handler event="c:delAccount" action="{!c.delAccountEvent}"/>
+    
+    <div class="slds-media__body">
+    	<h1 class="slds-page-header__title slds-m-right--small slds-truncate slds-align-middle" title="List View">Account List Component 1</h1>
+    </div>
+        <aura:if isTrue="{!v.accounts != null}">
+        <table class="slds-table slds-table-cell-buffer slds-table--bordered">
+            <thead>
+                <tr class="slds-line-height_reset ">
+                    <th scope="col"><div class="slds-truncate" title="Account Id">Account Id</div></th>
+                    <th scope="col"><div class="slds-truncate" title="Account Name">Account Name</div></th>
+                    <!--th scope="col"><div class="slds-truncate" title="Owner Id">Owner Id</th-->
+                    <th scope="col"><div class="slds-truncate" title="Industry">Industry</div></th>
+                    <th scope="col"><div class="slds-truncate" title="Rating">Rating</div></th>
+                    <th scope="col"><div class="slds-truncate" title="Phone">Phone</div></th>
+                    <th scope="col"><div class="slds-truncate" title="Action">Action</div></th>      
+                </tr>  
+            </thead>
+            <tbody>
+                <aura:iteration items="{!v.accounts}" var="account" indexVar="i">
+                    <tr class="slds-text-title_caps">
+                        <th scope="row"><div class="slds-truncate" title="{!account.Id}">{!account.Id}</div></th>
+                        <td><div class="slds-truncate" title="{!account.Name}">{!account.Name}</div></td>
+                        <td><div class="slds-truncate" title="{!account.Industry}">{!account.Industry}</div></td>
+                        <td><div class="slds-truncate" title="{!account.Rating}">{!account.Rating}</div></td>
+                        <td><div class="slds-truncate" title="{!account.Phone}">{!account.Phone}</div></td>
+                        <td>
+                        	<!--lightning:button class="slds-align_absolute-right" variant="brand" value="{!i}" label="Delete" onclick="{!c.fireApplicationEvent}"/-->
+                        	<lightning:button class="slds-align_absolute-right" variant="brand" value="{!i}" label="Delete" onclick="{!c.deleteRow}"/>
+                        </td>
+                    </tr>
+                </aura:iteration>
+            </tbody>
+        </table>
+	</aura:if>
+    
+</aura:component>

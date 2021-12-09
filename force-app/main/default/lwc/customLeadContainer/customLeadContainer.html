@@ -1,0 +1,64 @@
+<template>
+  <template if:true={isLoadingFinish}>
+    <c-custom-progres-indicator
+    set-the-process-name={currentProcessName}
+    set-current-step={currentStepName}
+    ></c-custom-progres-indicator>
+    <template if:true={isSearchScreenEnabled}>
+      <c-custom-search 
+        set-the-process-name={currentProcessName}
+        set-the-object-name2={objectName2}
+        set-the-record-id={recordId}
+        set-the-search-record-id={searchRecordId}
+        container-context={containerContext}
+        onprevious={previousHandler}
+        search-records={searchRecords}
+        search-field-mapping={searchFieldMapping}
+        onnext={nextHandler}
+        oncancel={cancelHandler}
+      ></c-custom-search>
+    </template>
+    <template if:true={isCreateScreenEnabled}>
+      <c-custom-create-screen
+        set-the-process-name={currentProcessName}
+        set-the-object-name2={objectName2}
+        set-the-record-id={recordId}
+        container-context={containerContext}
+        account-name={accountName}
+        onprevious={previousHandler} 
+        onnext={nextHandler}
+        oncancel={cancelHandler}
+      ></c-custom-create-screen>
+    </template>
+    <template if:true={isCompareScreenEnabled}>
+      <c-stare-and-compare-screen
+        set-the-process-name={currentProcessName}
+        set-the-object-name1={objectName1}
+        set-the-object-name2={objectName2}
+        set-the-compare-record1={recordId}
+        set-the-compare-record2={compareRecord2Id}
+        container-context={containerContext}
+        onprevious={previousHandler}  
+        onnext={nextHandler}
+        oncancel={cancelHandler}
+        ></c-stare-and-compare-screen>
+    </template>
+    <template if:true={isOpportunityScreenEnabled}>
+        <c-custom-opportunity-choice-screen
+          set-the-record-id={recordId}
+          set-the-process-name={currentProcessName}
+          set-the-object-name2={objectName2}
+          container-context={containerContext}
+          lead-convert-records={leadConvertRecords}
+          oncancel={cancelHandler}
+        ></c-custom-opportunity-choice-screen>
+      </template>
+    </template>
+    <template if:false={isLoadingFinish}>
+      <div class="slds-grid slds-wrap">
+          <div class="slds-col slds-size_12-of-12 slds-box slds-box_small slds-theme_default"> 
+              <lightning-spinner alternative-text="Loading" variant="brand" size="large" style="position:fixed"></lightning-spinner>
+          </div>
+      </div>
+  </template>
+</template>

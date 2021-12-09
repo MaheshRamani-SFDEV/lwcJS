@@ -1,0 +1,20 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes" controller="EmployeeController" access="global" >
+    
+    <aura:attribute name="employees" type="Object" />
+    <aura:attribute name="columns" type="List" />   
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:handler event="c:updateEmployees" action="{!c.handleUpdateEmployees}" />    
+    <aura:registerEvent name="enableFileUpload" type="c:enableFileUpload"/>
+    
+    <div style="height: 400px">
+        <lightning:datatable title="Employees List"
+                             keyField="id"
+                             data="{! v.employees }"
+                             columns="{! v.columns }"
+                             hideCheckboxColumn="false"
+                             maxRowSelection="1"
+                             onrowselection="{!c.enableFileUpload}" />
+    </div> 
+    
+</aura:component>

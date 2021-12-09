@@ -1,0 +1,40 @@
+<aura:component controller="AccountListController2"><!--Server-Side/Apex Controller-->	
+    <ltng:require styles="{!$Resource.SLDS001 + '/assets/styles/salesforce-lightning-design-system.css'}"/>
+    <aura:handler name="init" value="{!this}" action="{!c.getAccountTable2View}" /><!--Client-side Controller-->
+    <aura:attribute name="accounts2" type="Account[]"/><!--List Of Account-->  
+    <aura:registerEvent name="delAccount" type="c:delAccount"/>
+    <aura:handler event="c:addAccount" action="{!c.addAccountEvent}"/>    
+    
+    <div class="slds-media__body">
+    	<h1 class="slds-page-header__title slds-m-right--small slds-truncate slds-align-middle" title="List View">Account List Component 2</h1>
+    </div>
+    
+    <table class="slds-table slds-table-cell-buffer slds-table--bordered">
+        <thead>
+            <tr class="slds-line-height_reset ">
+                <th scope="col"><div class="slds-truncate" title="Account Id">Account Id</div></th>
+                <th scope="col"><div class="slds-truncate" title="Account Name">Account Name</div></th>
+                <!--th scope="col"><div class="slds-truncate" title="Owner Id">Owner Id</th-->
+                <th scope="col"><div class="slds-truncate" title="Industry">Industry</div></th>
+                <th scope="col"><div class="slds-truncate" title="Rating">Rating</div></th>
+                <th scope="col"><div class="slds-truncate" title="Phone">Phone</div></th>
+                <th scope="col"><div class="slds-truncate" title="Action">Action</div></th>      
+            </tr>  
+        </thead>
+        <tbody>
+            <aura:iteration items="{!v.accounts2}" var="account2" indexVar="i">
+                <tr class="slds-text-title_caps">
+                    <th scope="row"><div class="slds-truncate" title="{!account2.Id}">{!account2.Id}</div></th>
+                    <td><div class="slds-truncate" title="{!account2.Name}">{!account2.Name}</div></td>
+                    <td><div class="slds-truncate" title="{!account2.Industry}">{!account2.Industry}</div></td>
+                    <td><div class="slds-truncate" title="{!account2.Rating}">{!account2.Rating}</div></td>
+                    <td><div class="slds-truncate" title="{!account2.Phone}">{!account2.Phone}</div></td>
+                    <td>
+                    	<lightning:button class="slds-align_absolute-right" variant="brand" value="{!i}" label="Add" onclick="{!c.addRow}"/>
+                    </td>
+                </tr>
+            </aura:iteration>
+        </tbody>
+    </table>
+    
+</aura:component>

@@ -1,0 +1,143 @@
+<template>
+    <div class="slds-box slds-box_small slds-theme_default">
+        <div class="slds-grid slds-wrap">
+            <div class="slds-col slds-size_12-of-12 slds-box slds-box_small slds-theme_shade slds-m-bottom_x-small">   
+                <lightning-icon icon-name="standard:record_create" size="small" alternative-ext="record_create" title="Record_Create" ></lightning-icon>
+                <b class="slds-p-left_small slds-text-heading_small">New {setTheObjectName2} Creation</b>
+                </br>
+                <b>Instruction:</b>Update the fields to show in the new {setTheObjectName2}
+            </div>
+        </div>
+        <div class="slds-box slds-box_small slds-theme_shade slds-m-bottom_x-small">
+            <lightning-record-edit-form
+                object-api-name={setTheObjectName2}
+                onsubmit={handleSubmit}
+                onsuccess={handleSuccess}
+                density="compact">
+                <lightning-messages></lightning-messages>
+                <div class="slds-grid slds-wrap slds-form">
+                    <template for:each={createFields} for:item="createField">
+                        <div class="slds-col slds-size_6-of-12" key={createField.Field_Label__c}>
+                            <template if:true={createField.IsScreenDisplay__c}>
+                                <template if:true={createField.Editable__c}>
+                                    <template if:true={createField.Required__c}>
+                                        <template if:false={createField.IsAddressField__c}>
+                                            <template if:true={createField.IsRecordEditField__c}>
+                                                <div class="slds-col slds-size_11-of-12 slds-form-element slds-form-element_horizontal">
+                                                    <label class="slds-form-element__label" for={createField.Field_Label__c}><abbr class="slds-required" title="required">*</abbr>{createField.Field_Label__c}</label>
+                                                    <div class="slds-form-element__control">
+                                                        <lightning-input-field id={createField.Object2_FieldName__c} field-name={createField.Object2_FieldName__c} required value={createField.Object2_FieldValue__c} variant="label-hidden"></lightning-input-field>
+                                                    </div>
+                                                </div>
+                                                <div class="slds-col slds-size_1-of-12" ></div>
+                                            </template>
+                                            <template if:false={createField.IsRecordEditField__c}>
+                                                <div class="slds-col slds-size_11-of-12 slds-form-element slds-form-element_horizontal">
+                                                    <label class="slds-form-element__label" for={createField.Field_Label__c}><abbr class="slds-required" title="required">*</abbr>{createField.Field_Label__c</label>
+                                                    <div class="slds-form-element__control">
+                                                        <lightning-input name={createField.Object2_FieldName__c} disabled label={createField.Field_Label__c} type={createField.Object2_FieldType__c} value={createField.Object2_FieldValue__c} variant="label-hidden" key={createField.Field_Label__c} class="slds-form-element_2-col slds-p-vertical_xx-small"></lightning-input>
+                                                    </div>
+                                                </div>
+                                                <div class="slds-col slds-size_1-of-12" ></div>
+                                            </template>
+                                        </template>
+                                        <template if:true={createField.IsAddressField__c}>
+                                            <c-custom-address-field
+                                                is-editable={createField.Editable__c}
+                                                is-required={createField.Required__c}
+                                                is-billing-address={createField.IsBillingAddress__c}
+                                                is-shipping-address={createField.IsShippingAddress__c}
+                                                is-mailing-address={createField.IsMailingAddress__c}
+                                                address={leadAddress}
+                                                onchangeaddressfield={handleChangeAddressField}
+                                            ></c-custom-address-field>
+                                        </template>
+                                    </template>
+                                    <template if:false={createField.Required__c}>
+                                        <template if:false={createField.IsAddressField__c}>
+                                            <template if:true={createField.IsRecordEditField__c}>
+                                                <div class="slds-col slds-size_11-of-12 slds-form-element slds-form-element_horizontal">
+                                                <!--label class="slds-form-element__label" for={createField.Field_Label__c}>{createField.Field_Label__c}</label>
+                                                <div class="slds-form-element__control">-->
+                                                    <lightning-input-field id={createField.Object2_FieldName__c} field-name={createField.Object2_FieldName__c} value={createField.Object2_FieldValue__c} variant="label-inline"></lightning-input-field>
+                                                <!--</div>-->
+                                                </div>
+                                                <div class="slds-col slds-size_1-of-12" ></div>
+                                            </template>
+                                            <template if:false={createField.IsRecordEditField__c}>
+                                                <div class="slds-col slds-size_11-of-12 slds-form-element slds-form-element_horizontal">
+                                                    <lightning-input name={createField.Object2_FieldName__c} disabled label={createField.Field_Label__c} type={createField.Object2_FieldType__c} value={createField.Object2_FieldValue__c} variant="label-hidden" key={createField.Field_Label__c} class="slds-form-element_2-col slds-p-vertical_xx-small"></lightning-input>
+                                                </div>
+                                                <div class="slds-col slds-size_1-of-12" ></div>
+                                            </template>
+                                        </template>
+                                        <template if:true={createField.IsAddressField__c}>
+                                            <c-custom-address-field
+                                                is-editable={createField.Editable__c}
+                                                is-required={createField.Required__c}
+                                                is-billing-address={createField.IsBillingAddress__c}
+                                                is-shipping-address={createField.IsShippingAddress__c}
+                                                is-mailing-address={createField.IsMailingAddress__c}
+                                                address={leadAddress}
+                                                onchangeaddressfield={handleChangeAddressField}
+                                            ></c-custom-address-field>
+                                        </template>
+                                    </template> 
+                                </template>
+                                <template if:true={createField.ReadOnly__c}>
+                                    <template if:false={createField.IsAddressField__c}>
+                                        <template if:true={createField.IsRecordEditField__c}>
+                                            <div class="slds-col slds-size_11-of-12 slds-form-element slds-form-element_horizontal">
+                                                <label class="slds-form-element__label" for={createField.Field_Label__c}>{createField.Field_Label__c}</label>
+                                                <div class="slds-form-element__control">
+                                                    <lightning-input-field id={createField.Object2_FieldName__c} field-name={createField.Object2_FieldName__c} disabled value={createField.Object2_FieldValue__c} variant="label-hidden"></lightning-input-field>
+                                                </div>
+                                            </div>
+                                            <div class="slds-col slds-size_1-of-12" ></div>
+                                        </template>
+                                        <template if:false={createField.IsRecordEditField__c}>
+                                            <div class="slds-col slds-size_11-of-12 slds-form-element slds-form-element_horizontal">
+                                                <label class="slds-form-element__label" for={createField.Field_Label__c}>{createField.Field_Label__c}</label>
+                                                <div class="slds-form-element__control">
+                                                    <lightning-input name={createField.Object2_FieldName__c} disabled label={createField.Field_Label__c} type={createField.Object2_FieldType__c} value={createField.Object2_FieldValue__c} variant="label-hidden" key={createField.Field_Label__c} class="slds-form-element_2-col slds-p-vertical_xx-small"></lightning-input>
+                                                </div>
+                                            </div>
+                                            <div class="slds-col slds-size_1-of-12" ></div>
+                                        </template>
+                                    </template>
+                                    <template if:true={createField.IsAddressField__c}>
+                                        <c-custom-address-field
+                                            is-editable={createField.Editable__c}
+                                            is-required={createField.Required__c}
+                                            is-billing-address={createField.IsBillingAddress__c}
+                                            is-shipping-address={createField.IsShippingAddress__c}
+                                            is-mailing-address={createField.IsMailingAddress__c}
+                                            address={leadAddress}
+                                            onchangeaddressfield={handleChangeAddressField}
+                                        ></c-custom-address-field>
+                                    </template>
+                                </template>
+                            </template>
+                        </div>
+                    </template>
+                </div>
+                <div class="slds-grid slds-wrap">
+                    <div class="slds-col slds-size_12-of-12 slds-align_absolute-center" key={createField}>
+                        <lightning-button class="slds-m-around_xx-small" label="Save &amp; Continue" type="submit" variant="brand"></lightning-button>
+                        <template if:false={isRenderAfterAccCreateScr}>
+                            <lightning-button class="slds-m-around_xx-small" label="Return to Search" onclick={handleReturn} variant="brand"></lightning-button>
+                        </template>
+                        <lightning-button class="slds-m-around_xx-small" label="Cancel" onclick={handleCancel} variant="brand"></lightning-button>
+                    </div>
+                </div>
+            </lightning-record-edit-form>
+        </div>
+        <template if:false={isLoadingFinish}>
+            <div class="slds-grid slds-wrap">
+                <div class="slds-col slds-size_12-of-12 slds-box slds-box_small slds-theme_default"> 
+                    <lightning-spinner alternative-text="Loading" variant="brand" size="large" style="position:fixed"></lightning-spinner>
+                </div>
+            </div>
+        </template>
+    </div>
+</template>

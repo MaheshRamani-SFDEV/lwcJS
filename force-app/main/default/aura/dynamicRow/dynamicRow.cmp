@@ -1,0 +1,51 @@
+<aura:component controller="addDeleteController" Implements="flexipage:availableForRecordHome,force:hasRecordId">
+    <!--Init handler which is call doInit js function on component Load-->  
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:attribute name="selTabId" type="String"/>
+ 	<!--Event handler for Add and Delete Row Event which is fire from Child Component-->    
+    <aura:handler name="DeleteRowEvt" event="c:DeleteRowEvt" action="{!c.removeDeletedRow}"/>
+    <aura:handler name="AddRowEvt" event="c:AddNewRowEvt" action="{!c.addNewRow}"/>
+ 
+ 	<!--Aura Attribute for store Contact Object List as Array-->    
+    <aura:attribute name="contactList" type="Contact[]"/> 
+  
+    <lightning:layout horizontalAlign="center">
+        <lightning:layoutItem>
+    		<lightning:button variant="brand" label="Refresh Records View" onclick="{!c.refreshRecordsView }" />
+            <lightning:button variant="brand" label="Reset Filters" onclick="{!c.ResetFilters }" />
+    	</lightning:layoutItem>
+    </lightning:layout>
+    <br/>
+ 	<!--Table Part-->           
+    <table class="slds-table slds-table_bordered slds-table_cell-buffer"> 
+        <thead>
+            <tr class="slds-text-title_caps">
+                <th scope="col">
+                    <div class="slds-truncate">SR.No</div>
+                </th>
+                <th scope="col">
+                    <div class="slds-truncate" title="First Name">Index Field</div>
+                </th>
+                <th scope="col">
+                    <div class="slds-truncate" title="Last Name">Operator</div>
+                </th>
+                <th scope="col">
+                    <div class="slds-truncate" title="Phone">Value</div>
+                </th>
+            </tr>
+        </thead>   
+        <tbody>
+           <!--Iterate the child Component for display Table rows 
+               with pass the List Item Index for track the Every child Component 
+               and pass each List Contact Instance -->         
+            <aura:iteration items="{!v.contactList}" var="item" indexVar="index">
+                <c:dynamicRowItem ContactInstance="{!item}" rowIndex="{!index}" />
+            </aura:iteration>
+        </tbody>
+    </table>
+    <br/><br/><br/><br/>
+    <p><b>*User Attention:-</b> Please select <b>Index Field Criteria</b> for viewing specific records of selected <b>Big Object</b> and proceed ahead by click on <b>Next Button</b></p>  
+    <!--div class="slds-float_right">
+        <lightning:button variant="brand" label="ResetFilterConditions" onclick="{!c.getSelectedItems }" />
+    </div-->    
+</aura:component>

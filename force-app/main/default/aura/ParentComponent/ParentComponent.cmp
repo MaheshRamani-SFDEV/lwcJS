@@ -1,0 +1,11 @@
+<aura:component>
+    <aura:attribute name="parentAttribute1" type="String" default="Parent Attribute 1 Value"/>
+    <aura:attribute name="parentAttribute2" type="String" default="Parent Attribute 2 Value"/>
+ 	
+    <c:ChildComponent aura:id="child"/>
+    
+    <h1>This example involving two components communicating with a method with multiple param.</h1><br/>
+    
+    <lightning:button label="Call child method" onclick="{! c.onCallChildMethod }" />
+    
+</aura:component>

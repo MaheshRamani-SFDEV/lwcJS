@@ -1,0 +1,23 @@
+<aura:component controller="BigObjectUtilityController" >
+    <!--Init handler which is call doInit js function on component Load-->  
+    <!--aura:handler name="init" value="{!this}" action="{!c.doInit}"/-->
+    <aura:attribute name="selTabId" type="String"/>
+   <!--Declare Attributes-->  
+    <aura:attribute name="objvalue" type="string"/>
+	<aura:attribute name="listFieldOptions" type="List" />
+    <aura:attribute name="selectedFieldItems" type="List" />
+  	<lightning:layout horizontalAlign="center">
+        <lightning:button variant="brand" label="Refresh Records View" onclick="{!c.refreshRecordsView}" />
+    </lightning:layout> 
+   <!-- lightning dualListbox component -->
+    <lightning:dualListbox aura:id="selectOptions"
+                           name="Columns"
+                           label= "Select Columns" 
+                           sourceLabel="Available Fields" 
+                           selectedLabel="Selected Fields" 
+                           options="{! v.listFieldOptions }"
+                           value="{! v.selectedFieldItems }"
+                           onchange="{! c.handleChange }"
+                           required = "true"
+                           fieldLevelHelp="Big Object Fields for selection to view in records view table" />
+</aura:component>

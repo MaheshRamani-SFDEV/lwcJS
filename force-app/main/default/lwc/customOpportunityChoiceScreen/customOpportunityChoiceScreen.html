@@ -1,0 +1,70 @@
+<template>
+    <div class="slds-box slds-box_small slds-theme_shade">
+        <div class="slds-grid slds-wrap">
+            <div class="slds-col slds-size_12-of-12 slds-box slds-box_small slds-theme_shade slds-m-bottom_x-small">   
+                <lightning-icon icon-name="standard:opportunity" size="small" alternative-ext="opportunity" title="Opportunity" ></lightning-icon>
+                <b class="slds-p-left_small slds-text-heading_small">{setTheObjectName2} Creation</b>
+                </br>
+                <b>Instruction :</b> Select Yes/No option for Opportunity Creation. 
+            </div>
+        </div>
+        <template if:true={hideFlagOption}>
+            <div class="slds-box slds-box_small slds-theme_shade slds-m-bottom_x-small">
+                <div class="slds-grid slds-wrap">
+                    <div class = "slds-p-left_small slds-col slds-size_12-of-12">
+                        <lightning-radio-group name="radioGroup"
+                            label="Would you like to create an Opportunity?"
+                            options={options}
+                            value={value}
+                            onchange={changeHandler}
+                            type="radio">
+                        </lightning-radio-group>
+                    </div>
+                </div>
+                </br>
+                <div class="slds-grid slds-wrap">
+                    <div class ="slds-col slds-size_12-of-12 slds-align_absolute-center">   
+                        <lightning-button class="slds-m-around_xx-small" label="Continue" onclick={continueHandler} variant="brand"></lightning-button>
+                        <lightning-button class="slds-m-around_xx-small" label="Cancel" onclick={cancelHandler} variant="brand"></lightning-button>
+                    </div>
+                </div>
+            </div>
+        </template>
+        <template if:true={continueToCreateOpportunity}>
+            <c-custom-opportunity-creation
+                set-the-record-id={setTheRecordId}
+                set-the-process-name={setTheProcessName}
+                set-the-object-name2={setTheObjectName2}
+                container-context={containerContext}
+                oncancel={cancelHandler}>
+            </c-custom-opportunity-creation>
+        </template>
+        <template if:true={isLoadingFinish}>
+            <div class="slds-grid slds-wrap">
+                <div class="slds-col slds-size_6-of-12">
+                    <lightning-card title="Converted Account" icon-name="standard:account">
+                        <span class="slds-p-left_small">Account Name : </span>
+                        <span class="slds-p-left_small slds-text-link" onclick={accountLinkHandler}>
+                            {leadConvertResponse.accountName}
+                        </span>
+                    </lightning-card>
+                </div> 
+                <div class="slds-col slds-size_6-of-12">
+                    <lightning-card title="Converted Contact" icon-name="standard:contact">
+                        <span class="slds-p-left_small">Contact Name : </span>
+                        <span class="slds-p-left_small slds-text-link" onclick={contactLinkHandler}>
+                            {leadConvertResponse.contactName}
+                        </span>
+                    </lightning-card>
+                </div> 
+            </div>
+        </template>
+        <template if:false={isLoadingFinish}>
+            <div class="slds-grid slds-wrap">
+                <div class="slds-col slds-size_12-of-12 slds-box slds-box_small slds-theme_default"> 
+                    <lightning-spinner alternative-text="Loading" variant="brand" size="large" style="position:fixed"></lightning-spinner>
+                </div>
+            </div>
+        </template>
+    </div>
+</template>

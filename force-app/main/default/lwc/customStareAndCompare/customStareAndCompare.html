@@ -1,0 +1,107 @@
+<template>
+    <div class=" slds-p-around_medium"></div>
+    <lightning-card variant="Narrow" class="slds-scrollable" >
+   
+    <div class="slds-page-header">
+        <div class="slds-page-header__row">
+            <div class="slds-page-header__col-title">
+                <div class="slds-media">
+                    <div class="slds-media__figure">
+                        <span class="slds-icon_container slds-icon-standard-search" title="search">
+                            <lightning-icon icon-name="standard:account" alternative-ext="Create" title="Create" ></lightning-icon>
+                        <span class="slds-assistive-text">
+                            Create
+                        </span>
+                        </span> 
+                    </div>
+                    <div class="slds-media__body">
+                        <div class="slds-page-header__name">
+                            <div class="slds-page-header__name-title">
+                                <h1>
+                                    <span class="slds-page-header__title slds-truncate" title="Create Record">{setTheObjectName2} Update</span>
+                                </h1>
+                            </div>  
+                        </div>  
+                    </div>
+                </div>
+            </div>
+        </div> 
+    </div>
+<div class="slds-p-around_small">Instruction: Select wheather to use data from Lead Record or keep existing data.</div>
+<div class="slds-p-around_none slds-m-top_x-small slds-m-bottom_medium slds-m-horizontal_none">
+
+    <div class="slds-grid slds-wrap">
+         <div class="slds-col slds-size_3-of-12">
+          <span></span>
+         </div>
+         <div class="slds-col slds-size_4-of-12">
+          <span class="slds-text-heading_small">{setTheObjectName1}</span>
+         </div>
+         <div class="slds-col slds-size_1-of-12">
+                <span></span>
+         </div>
+         <div class="slds-col slds-size_4-of-12">
+            <span class="slds-text-heading_small">{setTheObjectName2}</span>
+         </div>
+         <div class="slds-col slds-size_3-of-12">
+            <span></span>
+        </div>
+          <div class="slds-col slds-size_4-of-12">
+            <span class="slds-text-link" onclick={selectAllLeadData}>                
+                    Select All                  
+            </span>
+          </div>
+          <div class="slds-col slds-size_1-of-12">
+                <span></span>
+               </div>
+          <div class="slds-col slds-size_4-of-12" onclick={selectAllAccountData}>
+              <span class="slds-text-link">                 
+                    Select All                
+            </span>
+          </div>
+      <template if:true={compareFields.data}>
+        <template for:each={compareFields.data} for:item="cf" > 
+            <div class="slds-col slds-size_3-of-12" key={cf.Id}>
+                <span>{cf.Label}</span>
+            </div>           
+            <div class="slds-col slds-size_4-of-12" key={cf.Id}>  
+                <!-- <lightning-input name={cf.name} type="text" value="Sample" variant="label-inline" key={cf.label} onchange={updateSeachKey} class="slds-p-vertical_xx-small">
+                    </lightning-input> -->
+                <c-custom-field-display
+                    is-editable={cf.Is_Object1_Field_Editable__c}    
+                    object-name1={setTheObjectName1}
+                    record-id1={setTheCompareRecord1}
+                    field-name={cf.Object1_Field_API__c}>    
+                 </c-custom-field-display>                       
+            </div>
+            <div class="slds-col slds-size_1-of-12" key={cf.Id}>
+                <span></span>
+            </div>        
+            <div class="slds-col slds-size_4-of-12" key={cf.Id}> 
+                <c-custom-field-display
+                    is-editable={cf.Is_Object2_Field_Editable__c}
+                    object-name2={setTheObjectName2}
+                    record-id2={setTheCompareRecord2}
+                    field-name={cf.Object2_Field_API__c}>
+                    </c-custom-field-display>              
+               
+            </div>            
+        </template>
+    </template>
+</div>
+</div>
+    <div class="slds-grid slds-wrap">
+        <div class="slds-col slds-size_12-of-12 slds-alighn_absolute-center">
+            <lightning-button class="slds-p-around_x-small" label="Save and Continue"
+            onclick={handleSave}
+            variant="brand"></lightning-button>
+            <lightning-button class="slds-p-around_x-small" label="Return to Search"
+            onclick={handleReturn}
+            variant="brand"></lightning-button>
+            <lightning-button class="slds-p-around_x-small" label="Cancel"
+            onclick={handleCancel}
+            variant="brand"></lightning-button>
+        </div>
+    </div>
+    </lightning-card>
+</template>

@@ -1,0 +1,3 @@
+<aura:event type="APPLICATION" description="Event to add Account in Account List Component 2">
+    <aura:attribute name="account2" type="Account"/>
+</aura:event>

@@ -1,0 +1,12 @@
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickActionWithoutHeader" 
+                access="global" 
+                controller="ImageContentExtractor"  >
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:attribute name="recordId" Type="String" />
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <p>Data Extracted Successfully from Image!</p>
+</aura:component>

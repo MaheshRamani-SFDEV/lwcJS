@@ -1,0 +1,20 @@
+<aura:component>
+    <aura:attribute name="activeSections" type="List" default="['dynamicRow','DualListBox']" />
+    <aura:attribute name="activeSectionsMessage" type="String" default="" />
+
+	<div>
+        <p>{! v.activeSectionsMessage }</p>
+    </div>
+        <lightning:accordion
+            allowMultipleSectionsOpen="true"
+            onsectiontoggle="{! c.handleSectionToggle }"
+            activeSectionName="{! v.activeSections }">
+            <lightning:accordionSection name="dynamicRow" label="Filter Conditions">
+                <c:dynamicRow  />
+            </lightning:accordionSection>            
+            <lightning:accordionSection name="DualListBox" label="Filter Columns for View">
+                <lightning:helptext iconName="utility:info" content="Select fields to be retrieved as columns for the Big data view" />  
+                <c:DualListBox />
+            </lightning:accordionSection>
+        </lightning:accordion>
+</aura:component>

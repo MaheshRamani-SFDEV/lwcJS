@@ -1,0 +1,29 @@
+<aura:component implements="lightning:appHomeTemplate" description="Main column and right sidebar. On a phone, the regions are of equal width">
+    <aura:attribute name="left" type="Aura.Component[]" />
+     <aura:attribute name="middle" type="Aura.Component[]" />
+    <aura:attribute name="right" type="Aura.Component[]" />
+    <aura:attribute name="lowerleft" type="Aura.Component[]" />
+    <!--aura:attribute name="region" type="Aura.Component[]" />
+	<aura:handler name="init" value="{!this}" action="{!c.init}" />
+	<div>
+		{!v.region}
+	</div-->
+    <div>
+        <lightning:layout>
+            <lightning:layoutItem flexibility="grow" class="slds-m-right_small">
+            	{!v.left}
+            </lightning:layoutItem>
+            <lightning:layoutItem size="{! $Browser.isDesktop ? '2' : '6' }" class="slds-m-left_small">
+            	{!v.middle}
+            </lightning:layoutItem>
+			<lightning:layoutItem size="{! $Browser.isDesktop ? '4' : '6' }" class="slds-m-left_small">
+            	{!v.right}
+            </lightning:layoutItem>
+        </lightning:layout>
+        <lightning:layout>
+            <lightning:layoutItem flexibility="grow" class="slds-m-right_small">
+            	{!v.lowerleft}
+            </lightning:layoutItem>
+        </lightning:layout>
+    </div>
+</aura:component>

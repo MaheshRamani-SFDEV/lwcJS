@@ -1,0 +1,19 @@
+<apex:page controller="displayinfo">
+    <apex:form >
+        <apex:pageBlock title="User Information Form">
+            <apex:selectList size="1" value="{!UserName}">
+                <apex:actionSupport event="onchange" action="{!selectUserName}"/>
+                <apex:selectOptions value="{!picklistvalues}" >
+                </apex:selectOptions>
+            </apex:selectList>
+            <br />
+            <apex:pageBlockSection title="User Personal Information" rendered="{!Personal}" >
+                <b>My name is mahesh Ramani</b>
+                I am working in IBM <i>India</i> as a salesforce developer for <b>BCBSMA</b> client.
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="User Company Details" rendered="{!Company}">
+                <p>salesforce is cloud computing company which offers CRM product</p>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+            </apex:form>
+</apex:page>

@@ -1,0 +1,100 @@
+<aura:component implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" 
+                controller="LC_OpportunityRecordController"
+                access="global">
+    <aura:attribute name="sObjectName" type="String" default="Opportunity" />  
+    <aura:attribute name="fieldSetName" type="String" default="CIB_Opportunity"/>
+    <aura:attribute name="url" type="string"/>
+    <aura:attribute name="showLtngCell" type="Boolean" default="false"/>
+    <aura:attribute name="fieldList" type="List"/>
+    <aura:attribute name="recordList" type="List"/>
+    <aura:attribute name="NumberOfRecords" type="Integer" default="2000"/>
+    <aura:attribute name="fieldSetMemberList" type="List"/>      
+    <aura:attribute name="showTable" type="boolean" default="true"/>       
+    <aura:attribute name="Spinner" type="boolean" default="false"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:handler event="aura:waiting" action="{!c.showSpinner}"/>
+    <aura:handler event="aura:doneWaiting" action="{!c.hideSpinner}"/>
+    
+    <!-- for pagination and sorting -->
+    <aura:attribute name="allOpportunity" type="Opportunity[]"/>
+    <aura:attribute name="currentList" type="Opportunity[]"/>
+    <aura:attribute name="pageNumber" type="Integer" default="1" />
+    <aura:attribute name="maxPage" type="Integer" default="1" />
+    <aura:attribute name="sortField" type="String"/>
+    <!--aura:attribute name="arrowDirectionField" type="String" default="Name" /--><!-- Commneted as a part of ST956-->
+    <aura:attribute name="arrowDirectionField" type="String" default="Close Date" /><!-- Added as a part of ST956 -->
+    <aura:attribute name="sortAsc" type="Boolean"/>
+    <aura:attribute name="flagarrow" type="Boolean" default="false"/>
+    <aura:handler name="change" value="{!v.pageNumber}"	action="{!c.renderPage}" />
+    
+    <aura:if isTrue="{!v.Spinner}">
+        <div aura:id="spinnerId" class="slds-spinner_container">
+            <div class="slds-spinner--brand  slds-spinner slds-spinner--large slds-is-relative" role="alert">
+                <span class="slds-assistive-text">Loading</span>
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>
+        </div>
+    </aura:if>
+    <lightning:card class="slds-scrollable_x ">   
+        <aura:set attribute="title">
+            <div class="header-text" >
+            <lightning:icon iconName="standard:opportunity" size="medium" alternativeText="Opportunities"/>
+            <b class="slds-m-left_small">My Group's Open Opportunities</b>
+            </div>
+        </aura:set>
+        <aura:if isTrue="{! v.showTable}">                
+            <aura:if isTrue="{!v.showLtngCell}">                
+                <table class="slds-table slds-table--bordered slds-scrollable_x ">
+                    <aura:if isTrue="{!v.flagarrow}" >
+                        <thead class="slds-text-title_caps">
+                            <tr>
+                                <aura:iteration items="{!v.fieldSetMemberList}" var="field" indexVar="idx">
+                                    <th class="slds-is-sortable slds-text-title--caps" scope="col" onclick="{!c.callSort}" data-record="{!idx}" >
+                                        <b>{!field.label}</b>
+                                        <aura:if isTrue="{!v.arrowDirectionField == field.label}">
+                                            <span>
+                                                <aura:if isTrue="{!v.sortAsc}">
+                                                    <lightning:icon iconName="utility:arrowup" size="xx-small" alternativeText="sort arrow up"/> 
+                                                </aura:if>
+                                                <aura:if isTrue="{!!v.sortAsc}">
+													<lightning:icon iconName="utility:arrowdown" size="xx-small" alternativeText="sort arrow down"/> 
+                                                </aura:if>
+                                            </span>
+                                        </aura:if>                                            
+                                    </th>
+                                </aura:iteration>
+                            </tr>
+                        </thead>
+                    </aura:if>
+                    <tbody>
+                        <aura:iteration items="{!v.currentList}" var="row" indexVar="idx">                               
+                            <tr>                                   
+                                <aura:iteration items="{!v.fieldSetMemberList}" var="field" >
+                                    <td> 
+                                        <c:RelOvw_LightningCellComponent sObjectName="{!v.sObjectName}" record="{!row}" field="{!field}" url="{!v.url}"/>
+                                    </td>                                
+                                </aura:iteration>
+                            </tr>
+                        </aura:iteration>
+                    </tbody>
+                </table>
+            </aura:if>
+            <div class="slds-m-top_small">
+                <aura:if isTrue="{!(v.recordList.length > 10)}">
+                    <lightning:layout horizontalAlign="center">
+                        <c:pagination currentPageNumber="{!v.pageNumber}" 
+                                      maxPageNumber="{!v.maxPage}" />
+                    </lightning:layout>                    
+                </aura:if>
+            </div>
+        </aura:if>
+        <aura:if isTrue="{! !v.showTable}">
+            <div class="slds-text-align--center">
+                <br></br> <br></br><br></br><br></br><br></br><br></br>
+                <p><b>No items to display.</b></p>
+            </div> 
+        </aura:if>
+    </lightning:card>
+</aura:component>

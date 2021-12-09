@@ -1,0 +1,46 @@
+<aura:component implements="forceCommunity:availableForAllPageTypes,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId">
+    
+    <aura:attribute name="leftRegionHeader" type="String" default="Activity"  />
+    <aura:attribute name="rightRegionHeader" type="String" default="Chatter" />
+    
+    <aura:attribute name="leftRegion" type="String" default="runtime_sales_activities:activityPanel" />
+    <aura:attribute name="rightRegion" type="String" default="forceChatter:feed"/>
+    
+    <aura:attribute name="type" type="String" default="Record"/>
+    <aura:attribute name="feedDesign" type="String" default="DEFAULT"/>
+    <aura:attribute name="context" type="String" default="RECORD"/>
+    
+    <aura:attribute name="isChatterFeed" type="Boolean" default="true"/>
+    <aura:attribute name="isPublisherContextGlobal" type="Boolean" default = "false"/>
+    <aura:attribute name="isPublisherContextRecord" type="Boolean" default="true"/>
+    
+    <aura:attribute name="leftRegionComponent" type="Aura.Component[]"/>
+    <aura:attribute name="rightRegionComponent" type="Aura.Component[]"/> 
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <lightning:layout>
+        <lightning:layoutItem size="6">
+            <div class="slds-box slds-theme_default"> 
+                <div class="header-text slds-m-bottom_x-small" >
+                    <lightning:icon iconName="standard:action_list_component" size="small" alternativeText="activity"/>
+                    <b class="slds-m-left_small slds-text-heading_small">{!v.leftRegionHeader}</b>
+                </div>                
+                {!v.leftRegionComponent}
+            </div>
+        </lightning:layoutItem>  
+        <lightning:layoutItem size="6">
+            <div class="slds-box slds-theme_shade"> 
+                <div class="header-text slds-m-bottom_x-small" >
+                    <b class="slds-text-heading_small">{!v.rightRegionHeader}</b>
+                </div> 
+                <aura:if isTrue="{!and(v.isChatterFeed, v.isPublisherContextGlobal)}">
+                	<forceChatter:publisher context="{!v.context}" />
+                </aura:if>
+                <aura:if isTrue="{!and(v.isChatterFeed, v.isPublisherContextRecord)}">
+                	<forceChatter:publisher context="RECORD" recordId="{!v.recordId}" />
+                </aura:if>
+            	{!v.rightRegionComponent}
+            </div>
+        </lightning:layoutItem>
+    </lightning:layout>   
+</aura:component>

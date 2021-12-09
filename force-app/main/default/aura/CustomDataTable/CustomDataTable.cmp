@@ -1,0 +1,30 @@
+<aura:component controller="CustomDataTableController" 
+                implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" 
+                access="global" >
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:attribute name="sObjectName" type="String" default="Account" />
+    <aura:attribute name="fieldSetName" type="String" default="dataTableFieldSet" />
+    <aura:attribute name="recordId" type="String"/>
+    <aura:attribute name="numberOfRecord" type="Integer" default="100" />
+    <aura:attribute name="lableList" type="object" />
+    <aura:attribute name="fieldsetData" type="object"/>
+    <!-- This attribute will hold the update records from data table-->
+    <aura:attribute name="updatedRecord" type="Object[]" />
+     <aura:attribute name="sortedBy" type="String" default="Name"/>
+    <aura:attribute name="sortedDirection" type="String" default="asc"/>
+    <!--aura:attribute name="columns" type="List"/-->
+    <lightning:card title="Record Table using FieldSet and lightning dataTable">
+        <lightning:datatable
+            aura:id="DataTable"
+            columns="{!v.lableList}"
+            data="{! v.fieldsetData }"
+            keyField="id"
+            errors="{! v.errors }"
+            hideCheckboxColumn="ftrue"
+            draftValues="{! v.draftValues }"
+            onsave="{! c.onSave }"
+        /> 
+    </lightning:card>
+      
+</aura:component>

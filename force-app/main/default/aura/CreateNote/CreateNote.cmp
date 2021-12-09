@@ -1,0 +1,55 @@
+<!--@ Purpose       : Lightning Component for Creating Notes.
+@ Call By           : NA
+@ Plan Release      : M11 
+@ Author            : Mahesh Ramani
+@ Initial version   : Salesforce.com API 47.0
+/*************************************************************************************************************************
+VERSION        DATE         Developer                      DESCRIPTON 
+1.0            NA           NA                             Baseline Version
+**************************************************************************************************************************/
+-->
+<aura:component controller="LC_NoteRecordController" 
+                access="global" >
+    <aura:attribute name="note" type="Note" default="{'sobjectType': 'Note','Title': '','Body': '','ParentId': '','OwnerId': ''}"/>
+    <aura:attribute name="ParentId" type="string" />
+    <aura:attribute name="saveClicked" type="boolean" />
+    <aura:attribute name="isCreateNote" type="boolean" />
+    <aura:attribute name="isViewNote" type="boolean" />
+    <aura:attribute name="noRelatedNote" type="boolean" />
+    <aura:attribute name="haveNoteForView" type="boolean" />
+    <aura:attribute name="fetchNoteRecord" type="Aura.action"/>
+    <!--aura:if isTrue="{!v.isCreateNote}"-->
+        <lightning:layout >
+            <lightning:layoutItem padding="around-small" size="12">
+                <div aria-labelledby="newnoteform">
+                    <fieldset class="slds-box slds-theme--default slds-container--large">                       
+                        <legend id="newitemform" class="slds-text-heading--small slds-p-vertical--medium">
+                            Create New Note
+                        </legend>                        
+                        <form class="slds-form--stacked">          
+                            <lightning:input aura:id="noteform" label="Title"
+                                             name="notetitle"
+                                             value="{!v.note.Title}"
+                                             required="true"/><br/>
+                            <lightning:textarea value="{!v.note.Body}" label="Body" 
+                                                placeholder="Type something interesting"/><br/>
+                            <lightning:input type="checkbox" aura:id="noteform" label="Is Private?"  
+                                             name="isPrivate"
+                                             class="slds-checkbox"
+                                             checked="{!v.note.IsPrivate}"/>
+                            <lightning:button aura:id="saveButton"
+                                              label="Save" 
+                                              class="slds-m-top--medium"
+                                              variant="brand"
+                                              onclick="{!c.save}"/>
+                            <lightning:button label="Cancel" 
+                                              class="slds-m-top--medium"
+                                              variant="brand"
+                                              onclick="{!c.cancel}"/>
+                        </form>
+                    </fieldset>
+                </div>
+            </lightning:layoutItem>            
+        </lightning:layout>        
+    <!--/aura:if-->   
+</aura:component>

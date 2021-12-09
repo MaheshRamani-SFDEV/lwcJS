@@ -1,0 +1,60 @@
+<template>
+    <div class="slds-m-around_medium">
+      
+      <div class="slds-m-bottom_small">
+          <lightning-input type="text"
+             value={sVal}
+             label="Contact Name"
+             onchange={updateSeachKey}
+             ></lightning-input>
+       </div>
+       
+       <lightning-button label="Search"
+          onclick={handleSearch}
+          variant="brand"></lightning-button>
+          
+       <!-- custom data table(with SLDS style) to display contact list  -->  
+       <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-m-top_small">
+          <thead>
+             <tr class="slds-line-height_reset">
+                <th class="" scope="col">
+                   <div class="slds-truncate" title="First Name">First Name</div>
+                </th>
+                <th class="" scope="col">
+                   <div class="slds-truncate" title="Last Name">Last Name</div>
+                </th>
+                <th class="" scope="col">
+                   <div class="slds-truncate" title="Phone">Phone</div>
+                </th>
+                <th class="" scope="col">
+                   <div class="slds-truncate" title="Email">Email</div>
+                </th>
+             </tr>
+          </thead>
+          
+          <tbody>
+             <!--iterate all contact records using for-each iteration -->    
+             <template for:each={contacts} for:item="contact">
+                <tr class="slds-hint-parent" key={contact.Id}>
+                   <td>
+                      <div class="slds-truncate">{contact.FirstName}</div>
+                   </td>
+                   <td>
+                      <div class="slds-truncate">{contact.LastName}</div>
+                   </td>
+                   <td>
+                      <div class="slds-truncate">
+                         <lightning-formatted-phone value={contact.Phone} ></lightning-formatted-phone>
+                      </div>
+                   </td>
+                   <td>
+                      <div class="slds-truncate">
+                         <lightning-formatted-email value={contact.Email} ></lightning-formatted-email>
+                      </div>
+                   </td>
+                </tr>
+             </template>
+          </tbody>
+       </table>
+    </div>
+ </template>

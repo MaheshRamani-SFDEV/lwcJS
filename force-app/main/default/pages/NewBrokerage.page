@@ -1,0 +1,2 @@
+<apex:page standardController="Broker__c" extensions="NewBrokerageController" action="{!redirect}" >
+</apex:page>

@@ -1,0 +1,27 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId" 
+                controller="EmployeeController"
+                access="global" >    
+    <aura:attribute name="employee" type="Employee__c" 
+                    default="{
+                             'sobjectType' : 'Employee__c',
+                             'Name' : '',
+                             'Age__c' : '',
+                             'Department__c' : ''
+                             }" />
+    <aura:registerEvent name="updEmplEvent" type="c:updateEmployees" />
+    <!--aura:registerEvent name="compEvent" type="c:CompEmployeeEvent" /-->
+    <div>
+        <lightning:spinner aura:id="spinner" variant="brand" alternativeText="Loading..." class="slds-hide"/>
+    </div>
+    <fieldset class="slds-box slds-theme--default slds-container--small">
+        <legend id="employee-registration-form" class="slds-text-heading--smallslds-p-vertical--medium">
+            employee Registration
+        </legend>        
+        <form class="slds-form--stacked">
+            <div class="slds-form-element"> <ui:inputText aura:id="name" class="slds-input" label="Name" value="{!v.employee.Name}" required="true" placeholder="Enter name" /></div>
+            <div class="slds-form-element"> <ui:inputNumber aura:id="age" class="slds-input" label="Age" value="{!v.employee.Age__c}" required="true" placeholder="Enter age"/></div>
+            <div class="slds-form-element"> <ui:inputText aura:id="dept" class="slds-input" label="Department" value="{!v.employee.Department__c}" required="true" placeholder="Enter department" /></div>
+            <div class="slds-form-element"> <lightning:button aura:id="btnSubmit" variant="brand" label="Submit" onclick="{!c.saveEmployee}"/></div>
+        </form>
+    </fieldset>  
+</aura:component>

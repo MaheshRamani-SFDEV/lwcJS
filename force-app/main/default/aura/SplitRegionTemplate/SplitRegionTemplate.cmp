@@ -1,0 +1,28 @@
+<aura:component implements="lightning:recordHomeTemplate">
+    <aura:attribute name="mainRegionComponent" type="Aura.Component[]"/>
+    <aura:attribute name="leftRegionComponent" type="Aura.Component[]"/>
+    <aura:attribute name="rightRegionComponent" type="Aura.Component[]"/>  
+    <aura:attribute name="leftRegionComponent2" type="Aura.Component[]"/>
+    <aura:attribute name="rightRegionComponent2" type="Aura.Component[]"/>  
+    <lightning:layout>
+        <lightning:layoutItem size="12">                      
+            {!v.mainRegionComponent}  
+        </lightning:layoutItem>
+    </lightning:layout>
+    <lightning:layout>
+        <lightning:layoutItem size="6">                      
+            {!v.leftRegionComponent}  
+        </lightning:layoutItem>  
+        <lightning:layoutItem size="6">  
+            {!v.rightRegionComponent}
+        </lightning:layoutItem>
+    </lightning:layout> 
+    <lightning:layout>
+        <lightning:layoutItem size="8">                      
+            {!v.leftRegionComponent2}  
+        </lightning:layoutItem>  
+        <lightning:layoutItem size="4">  
+            {!v.rightRegionComponent2}
+        </lightning:layoutItem>
+    </lightning:layout> 
+</aura:component>

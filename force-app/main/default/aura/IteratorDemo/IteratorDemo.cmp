@@ -1,0 +1,28 @@
+<aura:component > 
+    <aura:attribute name="lstItem" type="Object[]" />
+    <aura:attribute name="selectedItem" type="String" default="Changed Text would be displayed here"/> 
+    <aura:handler name="init" value="{!this}" action="{!c.initJSONData}"/> 
+    <div class="slds-grid slds-wrap"> 
+        <div class="slds-col slds-size--1-of-2"> 
+            <div class="slds-box slds-box--small slds-theme--shade slds-text-align--center"> 
+                <h3 class="slds-text-heading--large">Iterator on Lightning Component</h3> 	
+                    <aura:iteration items="{!v.lstItem}" var="item"> 
+                            <ui:inputText change="{!c.textChange}" class="slds-input slds-m-top--large" label="" value="{!item.companyName}"/> 
+                    </aura:iteration>  
+            </div> 
+        </div> 
+    	<div class="slds-col slds-size--1-of-2"> 
+    		<div class="slds-box slds-box--small slds-theme--shade slds-text-align--center"> 
+    			<h3 class="slds-text-heading--large">Iterator on HTML Component</h3>  
+                    <aura:iteration items="{!v.lstItem}" var="item" indexVar="index"> 
+                            <input data-selected-Index="{!index}" onchange="{!c.textChange}" type="text" value="{! item.companyName}" class="slds-input slds-m-top--large" />  
+                    </aura:iteration> 
+            </div> 
+        </div> 
+    	<div class="slds-col slds-align--absolute-center slds-size--2-of-2"> 
+    		<div class="slds-size--1-of-2 slds-m-top--large slds-text-heading--large">
+                    {!v.selectedItem} 
+            </div> 
+        </div> 
+    </div>
+</aura:component>

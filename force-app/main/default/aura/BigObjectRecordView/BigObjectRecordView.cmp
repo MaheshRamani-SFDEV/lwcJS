@@ -1,0 +1,15 @@
+<aura:component >
+    <aura:attribute name="selectedRecord" type="Map"/>
+    
+    <aura:handler name="viewBigObjRec" event="c:BigObjectRecordDetailView" action="{!viewRecord}" />
+    
+	<lightning:layout>
+        <div class="slds-grid slds-grid_align-space slds-box">
+            <div class="slds-col slds-size_6-of-12 slds-p-horizontal_medium">
+                <aura:iteration items="{!v.selectedRecord}" var="fields">
+                    {!v.fields.key} - {!v.fields.value}
+                </aura:iteration>
+            </div>
+        </div>
+    </lightning:layout>
+</aura:component>

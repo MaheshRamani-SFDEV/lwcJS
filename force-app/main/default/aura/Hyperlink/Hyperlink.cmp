@@ -1,0 +1,5 @@
+<aura:component>
+    <aura:attribute name="recordId" type="String" />
+
+    <p><a onclick="{!c.handleClick}">link to record</a></p>
+</aura:component>

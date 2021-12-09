@@ -1,0 +1,90 @@
+<template>
+
+<!--div class="slds-p-vertical_medium">
+    <lightning-progress-indicator type="path" current-step={selectedStep}>
+        <lightning-progress-step label="Account Search"  value="Account Search">
+        </lightning-progress-step>
+        <lightning-progress-step label="Account Data"  value="Account Data">
+        </lightning-progress-step>
+        <lightning-progress-step label="Contact Search"  value="Contact Search">
+        </lightning-progress-step>
+        <lightning-progress-step label="Contact Data"  value="Contact Data">
+        </lightning-progress-step>
+        <lightning-progress-step label="Opportunity"  value="Opportunity">
+        </lightning-progress-step>
+    </lightning-progress-indicator>
+</div-->
+
+<div class="custom-box"><h2>Account Update</h2></div>
+<div class="slds-p-around_small">Instruction: Select wheather to use data from Lead Record or keep existing data.</div>
+
+
+
+
+<div class="slds-p-around_none slds-m-top_x-small slds-m-bottom_medium slds-m-horizontal_none">
+
+    <div class="slds-grid slds-wrap">
+         <div class="slds-col slds-size_1-of-3">
+          <span></span>
+         </div>
+         <div class="slds-col slds-size_1-of-3">
+          <span class="slds-text-heading_small">Lead</span>
+         </div>
+         <div class="slds-col slds-size_1-of-3">
+            <span class="slds-text-heading_small">Account</span>
+         </div>
+         <div class="slds-col slds-size_1-of-3">
+            <span></span>
+        </div>
+          <div class="slds-col slds-size_1-of-3">
+            <span class="slds-text-link" onclick={selectAllLeadData}>                
+                    Select All                  
+            </span>
+          </div>
+          <div class="slds-col slds-size_1-of-3" onclick={selectAllAccountData}>
+              <span class="slds-text-link">                 
+                    Select All                
+            </span>
+          </div>
+      <template if:true={compareFields.data}>
+        <template for:each={compareFields.data} for:item="cf" > 
+            <div class="slds-col slds-size_1-of-3" key={cf.Id}>
+                <span>{cf.Label}</span>
+            </div>            
+            <div class="slds-col slds-size_1-of-3" key={cf.Id}>  
+                <c-field-display
+                    is-editable=true
+                    object-name='Lead'
+                    record-id={leadRecordId}
+                    field-name={cf.Object1_Field_API__c}>    
+                 </c-field-display>         
+               
+            </div>         
+            <div class="slds-col slds-size_1-of-3" key={cf.Id}> 
+                <c-field-display
+                    is-editable=true
+                    object-name='Account'
+                    record-id={selectedAccountRecordId}
+                    field-name={cf.Object2_Field_API__c}>
+                    </c-field-display>              
+               
+            </div>            
+        </template>
+    </template>
+</div>
+</div>
+<div class="slds-float--right">
+    <lightning-button class="slds-p-around_x-small" label="Save &amp; Continue"
+            onclick={handleSave}
+            variant="brand">
+    </lightning-button>
+    <lightning-button class="slds-p-around_x-small" label="Return to Search"
+            onclick={handleReturn}
+            variant="brand">
+    </lightning-button>
+    <lightning-button class="slds-p-around_x-small" label="Cancel"
+            onclick={handleCancel}
+            variant="brand">
+    </lightning-button>
+    </div>
+</template>

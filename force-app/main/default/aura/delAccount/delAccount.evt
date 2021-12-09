@@ -1,0 +1,3 @@
+<aura:event type="APPLICATION" description="Event to delete account from Account List Component 1" >
+    <aura:attribute name="account" type="Account" description="Use For Delete Account" />
+</aura:event>

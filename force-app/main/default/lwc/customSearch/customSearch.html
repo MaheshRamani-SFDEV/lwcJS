@@ -1,0 +1,52 @@
+<template> 
+    <div class="slds-box slds-box_small slds-theme_default">
+        <div class="slds-grid slds-wrap">
+            <div class="slds-col slds-size_12-of-12 slds-box slds-box_small slds-theme_shade slds-m-bottom_x-small">   
+                <lightning-icon icon-name="standard:search" size="small" alternative-ext="search" title="Search" ></lightning-icon>
+                <b class="slds-p-left_small slds-text-heading_small">{setTheObjectName2} Search</b>
+                </br>
+                <b>Instruction:</b> Enter search criteria for find potential matches, Then select an exisiting record or create new one.
+            </div>
+        </div>
+        <div class="slds-box slds-box_small slds-theme_shade slds-m-bottom_x-small">
+            <div class="slds-grid slds-wrap">
+                <template for:each={searchFieldMapping} for:item="searchField">
+                    <div class="slds-col slds-size_6-of-12" key={searchField.Object2_FieldName__c}>
+                        <template if:true={searchField.IsSearch_Editable__c}>
+                            <div class="slds-col slds-size_11-of-12">
+                                <lightning-input name={searchField.Object2_FieldName__c} label={searchField.Field_Label__c} type={searchField.Object2_FieldType__c} value={searchField.Object2_FieldValue__c} variant="label-inline" key={searchField.Field_Label__c} onchange={updateSeachKey} class="slds-form-element_2-col slds-p-vertical_xx-small"></lightning-input>
+                            </div>
+                            <div class="slds-col slds-size_1-of-12"></div>                           
+                        </template>
+                        <template if:false={searchField.IsSearch_Editable__c}>
+                            <div class="slds-col slds-size_11-of-12">
+                                <lightning-input name={searchField.Object2_FieldName__c} disabled label={searchField.Field_Label__c} type={searchField.Object2_FieldType__c} value={searchField.Object2_FieldValue__c} variant="label-inline" key={searchField.Field_Label__c} onchange={updateSeachKey} class="slds-form-element_2-col slds-p-vertical_xx-small"></lightning-input>
+                            </div>
+                            <div class="slds-col slds-size_1-of-12"></div>
+                        </template> 
+                    </div>
+                </template>
+            </div>
+            <div class="slds-grid slds-wrap">
+                <div class="slds-col slds-size_12-of-12 slds-align_absolute-center">
+                    <lightning-button class="slds-m-around_xx-small" label="Search" onclick={handleSearch} variant="brand"></lightning-button>
+                    <lightning-button class="slds-m-around_xx-small" label="Create New" onclick={handleCreateNew} variant="brand"></lightning-button>
+                    <lightning-button class="slds-m-around_xx-small" label="Cancel" onclick={handleCancel} variant="brand"></lightning-button>
+                </div>
+            </div>
+        </div>   
+        <c-custom-search-result
+            search-result-column={columnFields.data}
+            search-result-data={searchRecords}
+            is-search-result-found={isSearchResultFound}
+            onnext={handleUseSelected}
+        ></c-custom-search-result>
+        <template if:false={isLoadingFinish}>
+            <div class="slds-grid slds-wrap">
+                <div class="slds-col slds-size_12-of-12 slds-box slds-box_small slds-theme_default"> 
+                <lightning-spinner alternative-text="Loading" variant="brand" size="large" style="position:fixed"></lightning-spinner>
+                </div>
+            </div>
+        </template>
+    </div>
+</template>

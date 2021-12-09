@@ -1,0 +1,31 @@
+<aura:component controller="CommonPicklistController">
+
+    <aura:attribute name="ObjectName" type="String" default="Opportunity" access="global"/> <!-- Object Name as String-->
+    <aura:attribute name="Type" type="String" default="Type" access="global"/>  <!-- Field Name as String-->
+    <aura:attribute name="Stage" type="String" default="StageName" access="global"/> <!-- Field Name as String-->
+    <aura:attribute name="Lead_Source" type="String" default="LeadSource" access="global"/> <!-- Field Name as String-->
+    <aura:attribute name="TypePicklist" type="String[]" />  <!-- Picklist Values of Type Field -->
+    <aura:attribute name="StagePicklist" type="String[]" />  <!-- Picklist Values of StageName Field -->
+    <aura:attribute name="LeadSourcePicklist" type="String[]" />  <!-- Picklist Values of LeadSource Field -->
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    
+    <lightning:select label="Type">
+        <aura:iteration items="{!v.TypePicklist}" var="val">
+            <option value="{!val}"> {!val}</option>
+        </aura:iteration>
+    </lightning:select>
+    
+     <lightning:select label="Stage">
+        <aura:iteration items="{!v.StagePicklist}" var="val">
+            <option value="{!val}"> {!val}</option>
+        </aura:iteration>
+    </lightning:select>
+    
+     <lightning:select label="Lead Source">
+        <aura:iteration items="{!v.LeadSourcePicklist}" var="val">
+            <option value="{!val}"> {!val}</option>
+        </aura:iteration>
+    </lightning:select>
+    
+</aura:component>

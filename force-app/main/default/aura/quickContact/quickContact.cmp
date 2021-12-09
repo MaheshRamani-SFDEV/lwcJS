@@ -1,0 +1,25 @@
+<aura:component controller="QuickContactController" implements="force:lightningQuickActionWithoutHeader,force:hasRecordId,lightning:actionOverride">
+    <aura:attribute name="account" type="Account" />
+    <aura:attribute name="newContact" type="Contact" default="{ 'sobjectType': 'Contact' }" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <!-- Display a header with details about the account -->
+    <div class="slds-page-header" role="banner">
+        <p class="slds-text-heading_label">{!v.account.Name}</p>
+        <h1 class="slds-page-header__title slds-m-right_small slds-truncate slds-align-left">Create New Contact</h1>
+    </div>
+    <!-- Display the new contact form -->
+    <lightning:input aura:id="contactField" name="firstName" label="First Name" value="{!v.newContact.FirstName}" required="true"/>
+    <lightning:input aura:id="contactField" name="lastname" label="Last Name" value="{!v.newContact.LastName}" required="true"/>
+    <lightning:input aura:id="contactField" name="title" label="Title" value="{!v.newContact.Title}" />
+    <lightning:input aura:id="contactField" 
+                     type="phone" 
+                     name="phone" 
+                     label="Phone Number" 
+                     pattern="^(1?(-?\d{3})-?)?(\d{3})(-?\d{4})$"
+    				 messageWhenPatternMismatch="The phone number must contain 7, 10, or 11 digits. Hyphens are optional."
+    			     value="{!v.newContact.Phone}" 
+                     required="true"/>
+    <lightning:input aura:id="contactField" type="email" name="email" label="Email" value="{!v.newContact.Email}" />
+    <lightning:button label="Cancel" onclick="{!c.handleCancel}" class="slds-m-top_medium" />
+    <lightning:button label="Save Contact" onclick="{!c.handleSaveContact}" variant="brand" class="slds-m-top_medium"/>
+</aura:component>

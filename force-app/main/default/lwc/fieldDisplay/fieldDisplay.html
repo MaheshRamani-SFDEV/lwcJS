@@ -1,0 +1,35 @@
+<template>
+
+    <div class="slds-grid slds-wrap">
+         <div class="slds-col slds-size_1-of-2">
+            <lightning-input type="checkbox">
+         </lightning-input>
+        </div>
+        <div class="slds-col slds-size_1-of-2 slds-float_left" >
+            <template if:true={isEditable}>   
+               
+                <lightning-record-edit-form
+                            record-id={recordId}                   
+                            object-api-name={objectName}
+                            density="compact">            
+                            <lightning-messages></lightning-messages>                
+                            <lightning-input-field field-name={fieldName} variant= "label-hidden" onchange={handleValueChange}>
+                            </lightning-input-field>
+                </lightning-record-edit-form>                   
+            </template>
+
+            <template if:false={isEditable}>
+              
+                <lightning-record-view-form
+                                    record-id={recordId}                   
+                                    object-api-name={objectName}
+                                    density="compact">                    
+                                    <lightning-messages></lightning-messages>                
+                                    <lightning-output-field field-name={fieldName} variant= "label-hidden" onchange={handleValueChange}>
+                                    </lightning-output-field>
+                </lightning-record-view-form>
+                   
+            </template>
+        </div>
+    </div>
+</template>

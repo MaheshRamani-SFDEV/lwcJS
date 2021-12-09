@@ -1,0 +1,23 @@
+<aura:component >
+    See how we set the header facet.<br/>        
+    <c:Facet>
+        Nice body!
+        <aura:set attribute="header">
+            Hello Header!    
+        </aura:set>
+    </c:Facet><br/>
+    <div class="slds-form-element">
+      <label class="slds-form-element__label" for="form-element-01">Form Label</label>
+      <div class="slds-form-element__control">
+        <input type="text" id="form-element-01" placeholder="Placeholder Text" class="slds-input" />
+      </div>
+	</div>
+    <lightning:listView aura:id="listViewAccounts"
+    objectApiName="Account"
+    listName="AllAccounts"
+    rows="5"
+    showSearchBar="true"
+    showActionBar="false"
+    enableInlineEdit="true"
+    showRowLevelActions="false"/>
+</aura:component>

@@ -1,0 +1,17 @@
+.THIS {
+}
+.THIS.slds-spinner_container {  
+  z-index: 10000;
+  position: fixed;   
+}
+.THIS .table-test thead th span {
+background-color: #16325c;
+color: white;
+}
+.THIS .backgroundcolor{
+  background-color: lightgrey; 
+}
+.THIS .header-text {
+color: #006DCC;
+font-size: 18px;
+}

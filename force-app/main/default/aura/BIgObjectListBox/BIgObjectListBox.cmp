@@ -1,0 +1,53 @@
+<aura:component controller="BigObjectUtilityController">
+    <aura:attribute name="Options" type="List" default="[]"/>
+    
+    <!--Attribute for Dual List Box Child Component -->
+    <aura:attribute name="objvalue" type="string"/>
+    <aura:attribute name="listFieldOptions" type="List" default="[]"/>
+    <aura:attribute name="selectedFieldItems" type="List" default="[]"/>
+
+    <!--Attribute for Accordion Child Component -->
+    <!--aura:attribute name="activeSections" type="List" default="[]" /-->
+    <aura:attribute name="activeSections" type="List" default="['dynamicRow','DualListBox']" />
+    <aura:attribute name="activeSectionsMessage" type="String" default="" />
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>   
+    <div>
+        <div>
+            <!--Combobox Component-->        
+            <lightning:layout>
+                <lightning:layoutItem>
+                    <lightning:helptext iconName="utility:info" content="Select Big Object for Viewing the Records" />
+                    <lightning:combobox aura:id="selectItem" name="BigObject" label="Select a Big Object:"
+                                        placeholder="--None--"
+                                        value="new"
+                                        onchange="{!c.handleOptionSelected}"
+                                        options="{!v.Options}"
+                                        required = "true"/>                      
+                </lightning:layoutItem>
+                <lightning:layoutItem>
+                    <div>
+                        <p>{! v.activeSectionsMessage }</p>
+                    </div>
+                    <lightning:accordion
+                                         allowMultipleSectionsOpen="true"
+                                         onsectiontoggle="{! c.handleSectionToggle }"
+                                         activeSectionName="{! v.activeSections }">
+                        <lightning:accordionSection name="dynamicRow" label="Filter Conditions">
+                            <c:dynamicRow  />
+                        </lightning:accordionSection>            
+                        <lightning:accordionSection name="DualListBox" label="Filter Columns for View">
+                            <lightning:helptext iconName="utility:info" content="Select fields to be retrieved as columns for the Big data view" />  
+                            <c:DualListBox aura:id = "child" listFieldOptions = "{!v.listFieldOptions}" objvalue = "{!v.objvalue}" />
+                        </lightning:accordionSection>
+                    </lightning:accordion>
+                </lightning:layoutItem>
+            </lightning:layout>
+        </div>
+        <div>
+            <lightning:layout>
+                    <c:BigObjectRecordTable />        
+            </lightning:layout>
+        </div>
+    </div>
+</aura:component>

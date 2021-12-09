@@ -1,0 +1,85 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" 
+               	controller="LightningDataTableController"
+                access="global">
+    
+    <aura:attribute name="sObjectName" type="String" default="Opportunity"/>
+    <aura:attribute name="fieldSetName" type="String" default="opportunitytable"/>
+    <aura:attribute name="numberOfRecord" type="Integer" default="1000"/>
+    <aura:attribute name="paginationOffSet" type="Integer" default="5"/>
+    <aura:attribute name="numberOfSearchRecord" type="Integer" default="100"/>
+    <aura:handler event="force:refreshView" action="{!c.doInit}" />
+    
+    <aura:attribute name="mydata" type="Object"/>
+    <aura:attribute name="mycolumns" type="List"/>
+
+    <aura:attribute name="enableInfiniteLoading" type="Boolean" default="false"/>
+    
+    <aura:attribute name="url" type="String"/>
+    <aura:attribute name="userContext" type="String"/>
+    <!-- sorting -->
+    <aura:attribute name="sortedBy" type="String"/>
+    <aura:attribute name="sortedDirection" type="String"/>
+    <aura:attribute name="defaultSortDirection" type="String"/>
+    
+    <!-- for pagination and sorting -->
+    <aura:attribute type="List" name="filteredData" />
+    <aura:attribute type="List" name="currentList" />
+    <aura:attribute type="Integer" name="pageNumber" default="1" />
+    <aura:attribute type="Integer" name="maxPage" default="1" />
+    <aura:handler name="change"	value="{!v.pageNumber}"	action="{!c.renderPage}" />
+    
+    
+    <aura:attribute name="lstFieldsToQuery" type="List"/>
+ 	<aura:attribute name="searchKeyword" type="String" default="" description="use for store user search input"/>
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />   
+    <aura:attribute name="Message" type="boolean" default="false" description="use for display no record found message"/>
+    
+    <div class="slds-box slds-box_small slds-theme_default slds-m-bottom_x-small">
+        <div class="slds-grid slds-box slds-box_small slds-theme_shade slds-m-bottom_x-small">                
+            <div class="slds-col slds-size_9-of-12">   
+                <lightning:icon iconName="standard:search" alternativeText="search" title="search" />
+                <b class="slds-p-left_small slds-text-heading_small">{!v.sObjectName} Search Table</b>
+                <br/><b>Instruction: </b>Enter Search Keyword for Searching Record in Table...
+            </div>  
+            <!-- SEARCH INPUT AND SEARCH BUTTON-->           
+            <div class="slds-col slds-size_2-of-12 slds-align_left">
+                <lightning:input value="{!v.searchKeyword}" required="true" placeholder="search input..." aura:id="searchField" label="Search Keyword"/>
+            </div>
+            <div class="slds-col slds-size_1-of-12 slds-p-left_x-small slds-align_left">          
+                <lightning:button onclick="{!c.handleSearch}" variant="brand" label="Search" iconName="utility:search" class="slds-m-top_large"/> 
+            </div>
+        </div>
+        <div class="slds-box slds-box_small slds-theme_shade slds-m-top_x-small slds-m-bottom_x-small">                      
+            <!-- ERROR MESSAGE IF NOT RECORDS FOUND--> 
+            <aura:if isTrue="{!v.Message}">
+                <div class="slds-notify_container slds-is-relative">
+                    <div class="slds-notify slds-notify_toast slds-theme_error" role="alert">
+                        <div class="slds-notify__content">
+                            <h2 class="slds-text-heading_small">No Records Found...</h2>
+                        </div>
+                    </div>
+                </div>
+            </aura:if>
+            <div class="slds-grid slds-wrap slds-m-bottom_x-small">
+                <lightning:datatable aura:id="searchField"
+                                     data="{! v.currentList }" 
+                                     columns="{! v.mycolumns }" 
+                                     keyField="Id"
+                                     hideCheckboxColumn="false"
+                                     onrowaction="{!c.handleRowAction}"
+                                     sortedBy="{!v.sortedBy}"
+                                     sortedDirection="{!v.sortedDirection}"
+                                     defaultSortDirection="{!v.defaultSortDirection }"
+                                     onsort="{!c.handleColumnSorting}"
+                                     onsave="{!c.handleSave }"/>
+            </div>
+            <aura:if isTrue="{!(v.mydata.length > (v.paginationOffSet))}">
+            <lightning:layout  horizontalAlign="center">
+                <c:pagination currentPageNumber="{!v.pageNumber}" 
+                              maxPageNumber="{!v.maxPage}" />
+            </lightning:layout>
+        </aura:if>
+        </div>
+    </div>   
+</aura:component>

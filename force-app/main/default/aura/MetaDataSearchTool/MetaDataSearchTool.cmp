@@ -1,0 +1,76 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes"
+                controller="MetadataCSV">          
+    <!--aura init handler , call js "loadContactList" function on component load, and display contact data on table-->   
+    <aura:handler name="init" value="{!this}" action="{!c.loadMetaDataList}"/> 
+    
+    <!--Declare Attribute for store of metadata Records List-->  
+    <aura:attribute name="listOfMetadata" type="Object[]"/>
+    <aura:attribute name="hasData" type="Boolean" default="false"/>
+    
+    <div class="slds-box slds-theme_shade"> 
+        
+        <div class="header-text" >
+            <lightning:icon iconName="standard:search" size="medium" alternativeText="search"/>
+            <b class="slds-m-left_large slds-text-heading_medium">Metadata Search Tool</b>
+        </div>
+        <lightning:input aura:id="fieldIds" variant="label-stacked" label="Enter Field Ids for which dependency needs to be retrived:" 
+                         value="" 
+                         fieldLevelHelp="Enter a list of field Ids separated with a comma. Example: xxx,yyy,zzz" />
+        <br/>
+        <lightning:button variant="brand" class="slds-float_right slds-m-right_xxx-small" aura:id="getMetaDepend" label="Get Metadata" onclick="{!c.loadMetaDataList}"/>
+        <lightning:button variant="brand" class="slds-float_right slds-m-right_xxx-small" label="Download As CSV" onclick="{!c.downloadCsv}"/>
+        <br/>
+        <br/>
+        <aura:if isTrue="{!v.hasData}">
+            <!--HTML tabel for display Contact Records-->
+            <table class="slds-table slds-table--bordered slds-table--cell-buffer">
+                <thead> 
+                    <tr class="slds-text-title--caps">
+                        
+                        <th class="slds-is-sortable slds-text-title--caps" scope="col">
+                            <span class="slds-truncate" title="RefMetadataComponentId">RefMetadataComponentId</span>  
+                        </th>
+                        
+                        <th class="slds-is-sortable slds-text-title--caps" scope="col">
+                            <span class="slds-truncate" title="MetadataComponentName">MetadataComponentName</span>
+                        </th>
+                        
+                        <th class="slds-is-sortable slds-text-title--caps" scope="col">
+                            <span class="slds-truncate" title="MetadataComponentType">MetadataComponentType</span>
+                        </th>
+                        
+                        <th scope="col">
+                            <div class="slds-truncate" title="RefMetadataComponentName">RefMetadataComponentName</div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <aura:iteration items="{!v.listOfMetadata}" var="meta">  
+                        <tr>
+                            <th scope="row">
+                                <div class="slds-truncate" title="{!meta.RefMetadataComponentId}">{!meta.RefMetadataComponentId}</div>
+                            </th>
+                            
+                            <th scope="row">
+                                <div class="slds-truncate" title="{!meta.MetadataComponentName}">{!meta.MetadataComponentName}</div>
+                            </th>
+                            
+                            <th scope="row">
+                                <div class="slds-truncate" title="{!meta.MetadataComponentType}">{!meta.MetadataComponentType}</div>
+                            </th>
+                            
+                            <th scope="row">
+                                <div class="slds-truncate" title="{!meta.RefMetadataComponentName}">{!meta.RefMetadataComponentName}</div>
+                            </th> 
+                        </tr>
+                        
+                    </aura:iteration>
+                    
+                </tbody>
+            </table>
+            <aura:set attribute="else">
+                No Dependency Found!
+            </aura:set>
+        </aura:if>
+    </div>
+</aura:component>

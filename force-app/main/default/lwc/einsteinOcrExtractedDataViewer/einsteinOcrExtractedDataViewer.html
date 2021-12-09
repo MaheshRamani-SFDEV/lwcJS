@@ -1,0 +1,59 @@
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 09-15-2020
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+  Modifications Log 
+  Ver   Date         Author                               Modification
+  1.0   09-15-2020   ChangeMeIn@UserSettingsUnder.SFDoc   Initial Version
+-->
+<template>
+    <template if:true={isLoadingFinish}>
+        <div class="slds-box slds-box_small slds-theme_shade slds-m-top_x-small slds-m-bottom_x-small">
+            <lightning-icon icon-name="standard:account" size="small" alternative-ext="record_create" title="Record_Create" ></lightning-icon>
+            <b class="slds-p-left_small slds-text-heading_small">Extracted record from file</b>
+            <div class="slds-box slds-box_small slds-theme_default slds-m-top_x-small slds-m-bottom_x-small">
+                <template if:true={isDataExtracted}>
+                    <lightning-record-edit-form
+                        record-id={childRecordId}
+                        object-api-name="EinsteinOCRExtract__c"
+                        onsubmit={handleSubmit}
+                        onsuccess={handleSuccess}
+                        density="compact">
+                        <lightning-messages></lightning-messages>
+                        <div class="slds-grid slds-wrap slds-form">
+                            <template for:each={fieldDetails.data} for:item="field">
+                                <div class="slds-col slds-size_6-of-12" key={field.FieldApiName__c}>
+                                    <div class="slds-col slds-size_11-of-12">
+                                        <lightning-input-field id={field.FieldApiName__c} field-name={field.FieldApiName__c} variant="label-inline"></lightning-input-field>
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-12"></div>
+                                </div>
+                            </template>
+                        </div>
+                    </lightning-record-edit-form>
+                    <div class="slds-grid slds-wrap">
+                        <div class="slds-col slds-size_12-of-12 slds-align_absolute-center" key={createField}>
+                            <lightning-button class="slds-m-around_xx-small" label="Save" type="submit" variant="brand"></lightning-button>
+                            <lightning-button class="slds-m-around_xx-small" label="Cancel" onclick={handleCancel} variant="brand"></lightning-button>
+                        </div>
+                    </div>
+                </template>
+                
+                <template if:false={isDataExtracted}>
+                    <div class="slds-align_absolute-center slds-p-around_x-small">
+                        <br/>Data extract from file is in progress...
+                    </div>
+                </template>
+            </div>
+        </div>
+    </template>
+    <template if:false={isLoadingFinish}>
+        <div class="slds-grid slds-wrap">
+            <div class="slds-col slds-size_12-of-12 slds-box slds-box_small slds-theme_default"> 
+            <lightning-spinner alternative-text="Loading" variant="brand" size="large" style="position:fixed"></lightning-spinner>
+            </div>
+        </div>
+    </template>
+</template>

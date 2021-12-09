@@ -1,0 +1,9 @@
+<design:component>
+    <design:attribute name="leftRegionHeader" label="Left Region Component Header" description="Enter the left region component header name" placeholder="Enter Component Header Name" />
+    <design:attribute name="leftRegion" label="Left Region Component Name" description="Enter the left region component name (i.e runtime_sales_activities:activityPanel)" placeholder="Enter Component Name" required="true" />
+    <design:attribute name="rightRegionHeader" label="Right Region Component Header" description="Enter the right region component header name" placeholder="Enter Component Header Name" />
+    <design:attribute name="rightRegion" label="Right Region Component Name" description="Enter the right region component name (i.e forceChatter:feed)" placeholder="Enter Component Name" required="true" />   
+	<design:attribute name="type" label="Chatter Type" description="The strategy used to find items associated with the subject. Valid values include: Bookmarks, Company, DirectMessages, Feeds, Files, Filter, Groups, Home, Moderation, Mute, News, PendingReview, Record, Streams, To, Topics, UserProfile." datasource="Bookmarks, Company, DirectMessages, Feeds, Files, Filter, Groups, Home, Moderation, Mute, News, PendingReview, Record, Streams, To, Topics, UserProfile" default="Record" />
+    <design:attribute name="feedDesign" label="Chatter Feed Design" description="Valid values include DEFAULT ( shows inline comments on desktop, a bit more detail ) or BROWSE ( primarily an overview of the feed items )" datasource="BROWSE, DEFAULT" default="DEFAULT" />    
+    <design:attribute name="context" label="Publisher Context" description="The context in which the component is being displayed (RECORD or GLOBAL). RECORD is for a record feed, and GLOBAL is for all other feed types. This attribute is case-sensitive." datasource="RECORD, GLOBAL" default="RECORD" />           
+</design:component>

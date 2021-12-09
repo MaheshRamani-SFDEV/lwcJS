@@ -1,0 +1,25 @@
+<apex:page controller="dpl" >
+    <apex:form >
+        <apex:pageBlock title="Dependent Picklist Example">
+            <apex:pageBlockSection title="Country-State" columns="1">
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Country" />
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:selectList size="1" value="{!country}">
+                        <apex:selectOptions value="{!selectCountry}" />
+                        <apex:actionSupport event="onchange" reRender="s"/>
+                    </apex:selectList>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="State" />
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:selectList Size="1" value="{!state}" id="s">
+                    <apex:selectOptions value="{!selectState}" />
+                    </apex:selectList>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

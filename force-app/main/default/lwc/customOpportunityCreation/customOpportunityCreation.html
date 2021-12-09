@@ -1,0 +1,33 @@
+<template>
+    <template if:true={isLoadingFinish}>
+        <div class="slds-box slds-box_small slds-theme_shade slds-m-bottom_x-small">
+            <div class="slds-grid slds-wrap">
+                <div class = "slds-col slds-size_6-of-12">
+                    <lightning-combobox
+                        name="Record Type"
+                        label="Select Record Type"
+                        value={recordTypeId}
+                        placeholder="Select Record Type"
+                        options={options}
+                        onchange={handleChange}
+                        variant="label-inline">
+                    </lightning-combobox>
+                </div>
+            </div>
+            </br></br>
+            <div class="slds-grid slds-wrap">
+                <div class="slds-col slds-size_12-of-12 slds-align_absolute-center">
+                    <lightning-button class="slds-m-around_xx-small" label="Next" onclick={nextHandler} variant="brand"></lightning-button>
+                    <lightning-button class="slds-m-around_xx-small" label="Cancel" onclick={cancelHandler} variant="brand"></lightning-button>
+                </div>
+            </div>
+        </div>
+    </template>
+    <template if:false={isLoadingFinish}>
+        <div class="slds-grid slds-wrap">
+            <div class="slds-col slds-size_12-of-12 slds-box slds-box_small slds-theme_default"> 
+                <lightning-spinner alternative-text="Loading" variant="brand" size="large" style="position:fixed"></lightning-spinner>
+            </div>
+        </div>
+    </template>
+</template>

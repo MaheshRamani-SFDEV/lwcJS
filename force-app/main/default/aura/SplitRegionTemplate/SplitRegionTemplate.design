@@ -1,0 +1,19 @@
+<design:component label="Two Region Custom Record Page Template">
+    <flexipage:template >
+        <flexipage:region name="mainRegionComponent" label="Left Region" defaultWidth="Large">
+            <flexipage:formfactor type="Large" width="Large" />
+        </flexipage:region>
+        <flexipage:region name="leftRegionComponent" label="Left Region" defaultWidth="Large">
+            <flexipage:formfactor type="Large" width="Large" />
+        </flexipage:region>
+        <flexipage:region name="rightRegionComponent" label="Right Region" defaultWidth="Large">
+        	<flexipage:formfactor type="Large" width="Large" />
+        </flexipage:region>
+        <flexipage:region name="leftRegionComponent2" label="Left Region" defaultWidth="Large">
+            <flexipage:formfactor type="Large" width="Large" />
+        </flexipage:region>
+        <flexipage:region name="rightRegionComponent2" label="Right Region" defaultWidth="Large">
+        	<flexipage:formfactor type="Large" width="Large" />
+        </flexipage:region>
+    </flexipage:template>
+</design:component>

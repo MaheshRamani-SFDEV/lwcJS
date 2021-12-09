@@ -1,0 +1,8 @@
+<aura:component>
+    <lightning:recordViewForm recordId="a007F000004YpTlQAK" objectApiName="Rider_History__b">
+        <div class="slds-box">
+            <lightning:outputField fieldName="Rider_Account__c" />
+            <lightning:outputField fieldName="Start_Time__c" />
+        </div>
+    </lightning:recordViewForm>
+</aura:component>

@@ -1,0 +1,10 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes" access="global" >
+    <lightning:layout>
+        <lightning:layoutItem size="4">
+            <c:EmployeeForm />
+        </lightning:layoutItem>
+        <lightning:layoutItem size="8">
+            <c:EmployeeList />
+        </lightning:layoutItem>
+    </lightning:layout>
+</aura:component>

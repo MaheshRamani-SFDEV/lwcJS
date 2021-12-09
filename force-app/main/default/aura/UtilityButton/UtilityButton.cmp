@@ -1,0 +1,15 @@
+<aura:component implements="flexipage:availableForAllPageTypes" access="global">
+    <lightning:utilityBarAPI aura:id="utilitybar" />
+    <lightning:button label="Register Event Handler" onclick="{!c.registerUtilityClickHandler}"/>
+    <a href="javascript:void(0)" onclick="{!c.NavigateWebToCase}">
+            Click me to go to external site
+	</a>
+     <br/>
+    <ul class="slds-list--dotted ">
+        <li>    
+            <a href="javascript:void(0)" onclick="{!c.createCaseWithURLLocation}">         
+                Create Case
+            </a>
+        </li>
+    </ul>
+</aura:component>

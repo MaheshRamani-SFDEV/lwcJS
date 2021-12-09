@@ -1,0 +1,28 @@
+<aura:component implements="force:appHostable" controller="CampingListController" >
+   <aura:attribute name="items" type="Camping_Item__c[]"/>
+   <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:handler name="addItem" event="c:addItemEvent" action="{!c.handleAddItem}" />
+     <!-- NEW CAMPING ITEM FORM -->
+    <lightning:layout >
+        <lightning:layoutItem padding="around-small" size="6">
+            <c:campingListForm/>
+        </lightning:layoutItem>
+    </lightning:layout>
+    <!-- ITERATIING ITEM LISTS -->
+    <div class="slds-card slds-p-top--medium"> 
+        <lightning:layout>
+        <lightning:layoutItem padding="around-small" size="6">
+        <c:campingHeader/>
+            <section class="slds-card__body">
+                <div id="list" class="row">
+                    <aura:iteration items="{!v.items}" var="item">
+                        <c:campingListItem item="{!item}"/>
+                        <p>-------------------------------------------------------------------</p>
+                    </aura:iteration>
+                </div>
+            </section>
+        </lightning:layoutItem>
+    	</lightning:layout>
+    </div>    
+    <!-- / ITERATIING ITEM LISTS -->
+</aura:component>

@@ -1,0 +1,25 @@
+<aura:component controller="TwilioSendSMSController" implements="flexipage:availableForAllPageTypes,force:hasRecordId,force:lightningQuickAction" >
+   <aura:attribute name="textMessage" type="String" />
+   <aura:attribute name="destinationNumber" type="String" />
+   <aura:attribute name="messageError" type="Boolean" />
+   <aura:attribute name="recordId" type="String" />
+      <aura:handler name="init" value="{!this}" action="{!c.init}" />
+   <aura:if isTrue="{!v.messageError}">
+      <!-- Load error -->
+      <div class="userCreateError">
+         <ui:message title="Error" severity="error" closable="true">
+            Unable to send message. Please review your data and try again.
+         </ui:message>
+      </div>
+   </aura:if>
+   <div class="slds-form--stacked">
+      <label class="slds-form-element__label" for="instructMsg">Please enter the message (max 160 char) below: </label>
+      <br/>
+      <div class="slds-form-element__control">
+         <ui:inputText class="slds-input" aura:id="message" label="Text Message" value="{!v.textMessage}" required="true" maxlength="160" size="165" />
+      </div>
+      <div class="centered">
+         <ui:button class="slds-button slds-button--brand" press="{!c.sendMessage}" label="Send Message"/>
+      </div>
+   </div>
+</aura:component>

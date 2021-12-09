@@ -1,0 +1,21 @@
+<apex:page Controller="DynamicSchemaLister"  showChat="false" showHeader="false"> 
+    <apex:pageMessages /><br />
+    <apex:form >
+        <apex:pageBlock >
+            <apex:pageMessages />
+            <apex:pageBlockSection columns="1" >
+                <apex:selectList value="{!objToQuery}" multiselect="false" size="1">
+                    <apex:selectOptions value="{!items}"/>
+                </apex:selectList>
+                 <apex:commandButton value="Query Object: Retrieve Custom and 
+                 Updateable Fields" action="{!QueryObject}"/><p/>
+            </apex:pageBlockSection>
+             <apex:pageBlockSection title="Custom Field Properties">
+              <apex:pageBlockTable value="{!fieldProperties}" var="f">
+                  <apex:column value="{!f.fieldname}" headerValue="Field Name"/>
+                  <apex:column value="{!f.fieldtype}" headerValue="Field Type"/>
+              </apex:pageBlockTable>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+   </apex:form>
+</apex:page>

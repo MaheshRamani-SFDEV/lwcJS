@@ -1,0 +1,113 @@
+<aura:component controller="OpportunityDataController" 
+                implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" 
+                access="global" >
+    
+    <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
+    <aura:attribute name="recordId" type="Id" />
+    <aura:attribute name="oppList" type="List" />
+    <!--<aura:attribute name="fieldSetName" type="String" default="opportunitytable"/>-->
+    <!--<aura:attribute name="fieldSetMemberList" type="List"/>-->  
+    <aura:attribute name="isheaderVisible" type="Boolean" default="false" />
+    <aura:attribute name="showTable" type="boolean" default="true"/>       
+    <aura:attribute name="Spinner" type="boolean" default="false"/>
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:handler event="aura:waiting" action="{!c.showSpinner}"/>
+    <aura:handler event="aura:doneWaiting" action="{!c.hideSpinner}"/>
+    
+    <!-- for pagination and sorting -->
+    <aura:attribute name="currentList" type="Opportunity[]"/>
+    <aura:attribute name="recordList" type="List"/>
+    <aura:attribute name="pageNumber" type="Integer" default="1" />
+    <aura:attribute name="maxPage" type="Integer" default="1" />
+    <aura:handler name="change" value="{!v.pageNumber}"	action="{!c.renderPage}" />
+    
+    <lightning:card class="slds-scrollable_x slds-scrollable_y">
+        <aura:if isTrue="{!v.Spinner}">
+            <div aura:id="spinnerId" class="slds-spinner_container">
+                <div class="slds-spinner--brand  slds-spinner slds-spinner--large slds-is-relative" role="alert">
+                    <span class="slds-assistive-text">Loading</span>
+                    <div class="slds-spinner__dot-a"></div>
+                    <div class="slds-spinner__dot-b"></div>
+                </div>
+            </div>
+        </aura:if>
+        <!--   <aura:set attribute="title">
+            <div class="header-text" >
+                <lightning:icon iconName="standard:opportunity" size="medium" alternativeText="Opportunities"/>
+                <b class="slds-m-left_small">Account Related Opportunities</b>
+            </div>
+        </aura:set>-->
+        <aura:if isTrue="{! v.showTable}">
+            <div class="slds-card__body">
+                <table class="slds-table slds-table_cell-buffer slds-no-row-hover slds-table_bordered slds-table_fixed-layout" role="grid">
+                    <thead class="slds-text-title_caps">                  
+                        <tr class="slds-line-height_reset">
+                            <!--<aura:iteration items="{!v.fieldSetMemberList}" var="field">
+                            <th class="" scope="col">{!field}</th>
+                            <aura:if isTrue="{!v.isheaderVisible}" > 
+                                <aura:if isTrue="{!(field.label == 'Type' || field.label == 'Stage')}" >  
+                                    <th class="" scope="col">{!field.label}</th>                                    
+                                </aura:if>                                
+                             </aura:if>                             
+                        </aura:iteration>-->
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="Action">Action</div>
+                            </th>
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="Opportunity Name">Opportunity Name</div>
+                            </th>
+                            <aura:if isTrue="{!v.isheaderVisible}" >  
+                                <th class="" scope="col">
+                                    <div class="slds-truncate" title="Type">Type</div> 
+                                </th>
+                            </aura:if>
+                            <aura:if isTrue="{!v.isheaderVisible}" >
+                                <th class="" scope="col">
+                                    <div class="slds-truncate" title="Stage">Stage</div>
+                                </th>
+                            </aura:if>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <aura:iteration items="{!v.currentList}" var="opp" indexVar ="key">
+                            <tr class="slds-hint-parent">
+                                <td class="slds-truncate">
+                                    <lightning:input type="radio" label="" name="options" value="{!key}" onclick="{!c.handleClick}"/>
+                                </td>
+                                <td class="slds-truncate">{!opp.oppRec.Name}</td>
+                                <td data-index="{!key}" class="slds-truncate">
+                                    <aura:if isTrue="{!opp.isVisible}" >
+                                        {!opp.oppRec.Type}
+                                    </aura:if>       
+                                </td>
+                                <td data-index="{!key}" class="slds-truncate">
+                                    <aura:if isTrue="{!opp.isVisible}" >
+                                        {!opp.oppRec.StageName}
+                                    </aura:if>   
+                                </td>
+                            </tr>
+                        </aura:iteration>
+                    </tbody>
+                </table>
+            </div>
+            <!-- <div class="slds-m-top_small">-->
+            <footer class="slds-card__footer">
+                <aura:if isTrue="{!(v.oppList.length > 10)}">
+                    <lightning:layout horizontalAlign="center">
+                        <c:pagination currentPageNumber="{!v.pageNumber}" 
+                                      maxPageNumber="{!v.maxPage}" />
+                    </lightning:layout>                    
+                </aura:if>
+            </footer>
+        </aura:if>
+        <aura:if isTrue="{!!v.showTable}">
+            <div class="slds-text-align--center">
+                <br></br> <br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br>
+                <p><b>No items to display.</b></p>
+            </div> 
+        </aura:if>
+    </lightning:card> 
+    
+
+</aura:component>

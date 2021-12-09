@@ -1,0 +1,11 @@
+<aura:component controller="contactSaveCtrl" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" 
+                access="global">
+    <aura:attribute name="selectedLookUpRecord" type="sObject" default="{}"/>
+    <aura:attribute name="objContact" type="contact" default="{'sobjectType':'contact'}"/>  
+    <div class="slds-m-around_large">
+        <ui:inputText class="slds-input" value="{!v.objContact.LastName}" label="Last Name"/>
+        <c:CustomLookup objectAPIName="account" IconName="standard:account" label="Account Name" selectedRecord="{!v.selectedLookUpRecord}"/>     
+        <br/>       
+        <button class="slds-utton slds-button_brand" onclick="{!c.saveContactRecord}">Save Contact</button>    
+    </div>       
+</aura:component>

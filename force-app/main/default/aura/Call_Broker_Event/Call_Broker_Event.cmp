@@ -1,0 +1,60 @@
+<aura:component controller="CallBrokerController"
+                implements="force:lightningQuickAction,force:hasRecordId" 
+                access="Global">
+    
+	<aura:attribute name="recordId" type="String"/>
+    <aura:attribute name="broker" type="Broker__c" /> 
+    <aura:attribute name="TypePicklist" type="String[]" />  <!-- Picklist Values of Type Field -->
+     <aura:attribute name="ObjectName" type="String" default="Broker__c" access="global"/> <!-- Object Name as String-->
+    <aura:attribute name="Type" type="String" default="Call_Type__c" access="global"/>  <!-- Field Name as String-->
+   
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+    <div class="slds-m-around_xxx-large">
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open slds-modal_large">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Create New Broker</h2>
+                    </header>
+                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                        <div class="slds-grid slds-wrap">
+                            <div class="slds-col slds-size_1-of-2 slds-p-around_medium">
+                                <lightning:input aura:id="brokerField" name="Name" label="Broker Name"
+                                                 value="{!v.broker.Name}" required="true"/>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2 slds-p-around_medium">
+                                <lightning:select label="Call Type">
+                                    <aura:iteration items="{!v.TypePicklist}" var="val">
+                                        <option value="{!val}"> {!val}</option>
+                                    </aura:iteration>
+                                </lightning:select>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2 slds-p-around_medium">
+                                <lightning:input aura:id="brokerField" name="Deal" label="Opportunity"
+                                                 value="{!v.broker.Deal__c}" />
+                            </div>
+                            <div class="slds-col slds-size_1-of-2 slds-p-around_medium">
+                                <lightning:input aura:id="brokerField" name="Account" label="Account"
+                                                 value="{!v.broker.Account__c}" />
+                            </div>
+                            <div class="slds-col slds-size_1-of-2 slds-p-around_medium">
+                                <lightning:input aura:id="brokerField" name="OwnerId" label="OwnerId"
+                                                 value="{!v.broker.OwnerId}" />
+                            </div>  
+                            
+                        </div>
+                    </div>
+                    <footer class="slds-modal__footer">
+                        <lightning:button variant="neutral" 
+                                          label="Cancel"
+                                          title="Cancel"
+                                          onclick="{!c.handleCancel}"/>
+                        <lightning:button variant="brand" 
+                                          label="Save"
+                                          title="Save"
+                                          onclick="{!c.handleSaveBroker}"/>
+                    </footer>
+                </div>
+            </section>
+    </div>
+</aura:component>

@@ -1,0 +1,10 @@
+<aura:component controller="DisplayCaseController" >
+    <aura:attribute name="record" type="Case" />
+    <aura:attribute name="caseId" type="String" default="50090000003VVJp"/>
+    <ui:button label="get Case Record"  press="{!c.getCaseRecord}" />
+    <p>
+        Subject : {!v.record.Subject}<br/>
+        Description : {!v.record.Description}<br/> 
+        Status : {!v.record.Status} 
+    </p>
+</aura:component>

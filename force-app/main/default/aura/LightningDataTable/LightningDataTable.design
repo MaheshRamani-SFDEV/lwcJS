@@ -1,0 +1,6 @@
+<design:component>
+    <design:attribute name="sObjectName" />
+    <design:attribute name="fieldSetName"/>
+    <design:attribute name="paginationOffSet"/>
+    <design:attribute name="numberOfSearchRecord"/>
+</design:component>

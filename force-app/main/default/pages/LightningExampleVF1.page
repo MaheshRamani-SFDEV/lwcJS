@@ -1,0 +1,19 @@
+<apex:page StandardController="Opportunity" recordSetVar="Opportunity" lightningStyleSheets="true"  >  
+
+<!--apex:page showHeader="false" sidebar="false"-->
+    <apex:includeLightning />    
+    <apex:includeScript value="/lightning/lightning.out.js" />
+    <div id="LightningComponentid" />    
+    <script>
+    $Lightning.use("c:LightningOutApp", function() {
+        $Lightning.createComponent("c:LightningVF",
+          { },
+          "LightningComponentid",
+          function(cmp) {
+
+             console.log('Display Lightning component in visualforce page');
+          });
+    });  
+      
+    </script>    
+</apex:page>

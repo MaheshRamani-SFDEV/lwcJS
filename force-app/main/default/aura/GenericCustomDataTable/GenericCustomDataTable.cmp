@@ -1,0 +1,29 @@
+<!--default sort is 'asc', can be done 'desc' -->
+<!--hideCheckboxColumn is false by default, make it true for hiding checkbox column -->
+<aura:component controller="testDataTableController"
+                implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" 
+                access="global">
+    <aura:attribute name="sObjectName" type="String" default="Opportunity"/>
+    <aura:attribute name="fieldSetName" type="String" default="opportunitytable"/>
+    <aura:attribute name="numberOfRecord" type="Integer" default="10"/>
+    <aura:attribute name="mydata" type="Object" />
+    <aura:attribute name="mycolumns" type="List"/>
+    
+    <aura:attribute name="sortBy" type="String"/>
+    <aura:attribute name="sortDirection" type="String"/>
+    
+    <aura:handler name="init" value="{! this }" action="{! c.init }"/>
+    <lightning:card title="Record Table using FieldSet and generic lightning dataTable">
+	<lightning:datatable aura:id="myTable"
+                         data="{! v.mydata }"
+                         columns="{! v.mycolumns }"
+                         keyField="Id"
+                         hideCheckboxColumn="true"
+                         sortedBy="{!v.sortBy}"
+                         sortedDirection="{!v.sortDirection}"
+                         onsort="{!c.handleSort}"
+                         defaultSortDirection="asc" 
+                         onsave="{! c.handleSave }"
+                         />
+    </lightning:card>
+</aura:component>

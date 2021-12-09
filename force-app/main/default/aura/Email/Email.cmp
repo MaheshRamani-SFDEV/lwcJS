@@ -1,0 +1,18 @@
+<aura:component implements="clients:availableForMailAppAppPage,clients:hasItemContext" controller="EmailController">
+    <!--
+        This component handles the email context on initialization.
+        It retrieves accounts and opportunities based on the email addresses included
+        in the email recipients list.
+        It then calculates the account and opportunity ages based on when the accounts
+        were created and when the opportunities will close.
+	-->
+    <aura:handler name="init" value="{!this}" action="{!c.handlePeopleChange}" />
+    <aura:attribute name="accounts" type="List" />
+    <aura:attribute name="opportunities" type="List" />
+    <aura:iteration items="{!v.accounts}" var="acc">
+    	{!acc.name} => {!acc.age}
+    </aura:iteration>
+    <aura:iteration items="{!v.opportunities}" var="opp">
+    	{!opp.name} => {!opp.closesIn} Days till closing
+    </aura:iteration>
+</aura:component>

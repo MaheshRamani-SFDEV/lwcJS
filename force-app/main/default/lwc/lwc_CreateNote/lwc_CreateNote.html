@@ -1,0 +1,24 @@
+<template>
+    <lightning-layout >
+        <lightning-layout-item padding="around-small" size="12">
+            <div aria-labelledby="newnoteform">
+                <fieldset class="slds-box slds-theme--default slds-container--medium">                       
+                    <legend id="newitemform" class="slds-text-heading--small slds-p-vertical--medium">
+                        Create New Note
+                    </legend>                        
+                    <form class="slds-form--stacked">   
+                        <div class="slds-p-around_medium lgc-bg">
+                            <lightning-input type="text" label="Title" name="notetitle"></lightning-input>
+                        </div>
+                        <div class="slds-p-around_medium lgc-bg">
+                            <lightning-input type="text" label="Body" placeholder="Type something interesting"></lightning-input>
+                        </div>
+                        <div class="slds-p-around_medium lgc-bg">
+                            <lightning-input type="checkbox" label="Is Private?" name="isPrivate"></lightning-input>
+                        </div>
+                    </form>
+                </fieldset>
+            </div>
+        </lightning-layout-item>            
+    </lightning-layout>
+</template>

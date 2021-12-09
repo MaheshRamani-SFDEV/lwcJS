@@ -1,0 +1,33 @@
+<aura:component controller="LC_CustomTableController" implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+	<aura:attribute name="sObjectName" type="String" default="Opportunity" />
+	<aura:attribute name="fieldSetName" type="String" default="opportunitytable"/>
+    <aura:attribute name="numberOfRecord" type="Integer" default="100" />
+	<aura:attribute name="fieldSetValues" type="List"/>
+	<aura:attribute name="tableRecords" type="List"/>
+	<aura:attribute name="parentFieldName" type="String" default="AccountId"/>
+	<aura:attribute name="parentRecordId" type="String"/>
+    <aura:attribute name="recordId" type="String"/>
+	<aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+	<div class="slds">
+		<table class="slds-table slds-table--bordered">
+			<thead>
+				<tr>
+					<aura:iteration items="{!v.fieldSetValues}" var="field">
+						<th> {!field.label}</th>
+					</aura:iteration>
+				</tr>
+			</thead>
+			<tbody>
+				<aura:iteration items="{!v.tableRecords}" var="row">
+					<tr>
+						<aura:iteration items="{!v.fieldSetValues}" var="field">
+							<td>
+								<c:LightningCellComponent record="{!row}" field="{!field}"/>
+							</td>
+						</aura:iteration>
+					</tr>
+				</aura:iteration>
+			</tbody>
+		</table>
+	</div>
+</aura:component>

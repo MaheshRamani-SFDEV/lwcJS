@@ -1,0 +1,5 @@
+<aura:component controller="NewCaseController" 
+                implements="lightning:isUrlAddressable,force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickAction,lightning:actionOverride" 
+                access="global" >
+    <lightning:button label="Cancel" class="slds-m-top--medium" variant="brand" onclick="{!c.OCRExtract}"/>
+</aura:component>

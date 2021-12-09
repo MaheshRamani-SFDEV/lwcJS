@@ -1,0 +1,23 @@
+<aura:component implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" 
+                access="global">
+    <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
+	<aura:attribute name="recordId" type="Id" />    
+        <div class="slds-modal__container" style="max-width:100rem;">
+            <div class="slds-modal__header">
+                <button class="slds-button slds-button--icon-inverse slds-modal__close" onclick="{!c.hideModal}">
+                    <lightning:icon iconName="utility:close" size="medium" variant="bare"/>
+                    <span class="slds-assistive-text">Close</span>
+                </button>
+                <h2 class="slds-text-heading--medium">Related Opportunity</h2>
+            </div>
+            <div class="slds-modal__content slds-p-around--medium">
+                <div class="modalContent">
+                    <c:OpportunityData recordId="{!recordId}"/>
+                </div>
+            </div>
+            <div class="slds-modal__footer">
+                <button class="slds-button slds-button--neutral slds-button--brand" onclick="{!c.hideModal}">Close</button>
+            </div>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </div>   
+</aura:component>

@@ -1,0 +1,11 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes" access="global" controller="LightningController">
+    <ui:button label="Fetch" press="{!c.fetch}"/>
+    <br/><br/>
+    <aura:attribute name="showBool" type="Boolean" default="true"/>
+    <aura:attribute name="customers" type="List" />
+    <aura:renderIf isTrue="{!v.showBool}">
+        <aura:iteration items="{!v.customers}" var="cus" indexVar="key">
+            {!cus.key} - {!cus.value}<br/><br/>
+        </aura:iteration>
+    </aura:renderIf>
+</aura:component>

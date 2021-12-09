@@ -1,0 +1,6 @@
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickActionWithoutHeader" 
+                access="global" 
+                controller="ImageContentExtractor"  >
+    <aura:attribute name="recordId" Type="String" />
+    <lightning:button label="OCR Extractor" class="slds-m-top--medium" variant="brand" onclick="{!c.OCRExtrator}"/>
+</aura:component>

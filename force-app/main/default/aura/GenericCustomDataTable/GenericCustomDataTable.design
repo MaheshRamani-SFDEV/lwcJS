@@ -1,0 +1,5 @@
+<design:component>
+	 <design:attribute name="sObjectName" />
+    <design:attribute name="fieldSetName" />
+    <design:attribute name="numberOfRecord" />
+</design:component>

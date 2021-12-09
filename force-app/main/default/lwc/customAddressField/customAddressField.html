@@ -1,0 +1,232 @@
+<template>
+    <template if:true={isLoadingFinish}>
+        <template if:true={isEditable}>
+            <template if:true={isRequired}>
+                <template if:true={isBillingAddress}>
+                    <div class="slds-col slds-size_11-of-12">
+                        <lightning-input-address
+                            address-label="Street Address"
+                            street-label="Street"
+                            city-label="City"
+                            country-label="Country"
+                            province-label="State/Province"
+                            postal-code-label="Zip/Postal Code"
+                            street={address.Street}
+                            city={address.City}
+                            country={address.CountryCode}
+                            province={address.StateCode}
+                            postal-code={address.PostalCode}
+                            country-options={getBillingCountryOptions}
+                            province-options={getBillingProvinceOptions}
+                            onchange={handleBillingChange}
+                            variant="label-inline"
+                            required
+                            >
+                        </lightning-input-address>
+                    </div>
+                    <div class="slds-col slds-size_1-of-12" ></div>
+                </template>
+                <template if:true={isShippingAddress}>
+                    <div class="slds-col slds-size_11-of-12">
+                        <lightning-input-address
+                            address-label="Mailing Address"
+                            street-label="Street"
+                            city-label="City"
+                            country-label="Country"
+                            province-label="State/Province"
+                            postal-code-label="Zip/Postal Code"
+                            street={address.Street}
+                            city={address.City}
+                            country={address.CountryCode}
+                            province={address.StateCode}
+                            postal-code={address.PostalCode}
+                            country-options={getShippingCountryOptions}
+                            province-options={getShippingProvinceOptions}
+                            onchange={handleShippingChange}
+                            variant="label-inline"
+                            required
+                            >
+                        </lightning-input-address>
+                    </div>
+                    <div class="slds-col slds-size_1-of-12" ></div>
+                </template>
+                <template if:true={isMailingAddress}>
+                    <div class="slds-col slds-size_11-of-12">
+                        <lightning-input-address
+                            address-label="Mailing Address"
+                            street-label="Street"
+                            city-label="City"
+                            country-label="Country"
+                            province-label="State/Province"
+                            postal-code-label="Zip/Postal Code"
+                            street={address.Street}
+                            city={address.City}
+                            country={address.CountryCode}
+                            province={address.StateCode}
+                            postal-code={address.PostalCode}
+                            country-options={getMailingCountryOptions}
+                            province-options={getMailingProvinceOptions}
+                            onchange={handleMailingChange}
+                            variant="label-inline"
+                            required
+                            >
+                        </lightning-input-address>
+                    </div>
+                    <div class="slds-col slds-size_1-of-12" ></div>
+                </template>
+            </template>
+            <template if:false={isRequired}>
+                <template if:true={isBillingAddress}>
+                    <div class="slds-col slds-size_11-of-12">
+                        <lightning-input-address
+                            address-label="Street Address"
+                            street-label="Street"
+                            city-label="City"
+                            country-label="Country"
+                            province-label="State/Province"
+                            postal-code-label="Zip/Postal Code"
+                            street={address.Street}
+                            city={address.City}
+                            country={address.CountryCode}
+                            province={address.StateCode}
+                            postal-code={address.PostalCode}
+                            country-options={getBillingCountryOptions}
+                            province-options={getBillingProvinceOptions}
+                            onchange={handleBillingChange}
+                            variant="label-inline"
+                            >
+                        </lightning-input-address>
+                    </div>
+                    <div class="slds-col slds-size_1-of-12" ></div>
+                </template>
+                <template if:true={isShippingAddress}>
+                    <div class="slds-col slds-size_11-of-12">
+                        <lightning-input-address
+                            address-label="Mailing Address"
+                            street-label="Street"
+                            city-label="City"
+                            country-label="Country"
+                            province-label="State/Province"
+                            postal-code-label="Zip/Postal Code"
+                            street={address.Street}
+                            city={address.City}
+                            country={address.CountryCode}
+                            province={address.StateCode}
+                            postal-code={address.PostalCode}
+                            country-options={getShippingCountryOptions}
+                            province-options={getShippingProvinceOptions}
+                            onchange={handleShippingChange}
+                            variant="label-inline"
+                            >
+                        </lightning-input-address>
+                    </div>
+                    <div class="slds-col slds-size_1-of-12" ></div>
+                </template>
+                <template if:true={isMailingAddress}>
+                    <div class="slds-col slds-size_11-of-12">
+                        <lightning-input-address
+                            address-label="Mailing Address"
+                            street-label="Street"
+                            city-label="City"
+                            country-label="Country"
+                            province-label="State/Province"
+                            postal-code-label="Zip/Postal Code"
+                            street={address.Street}
+                            city={address.City}
+                            country={address.CountryCode}
+                            province={address.StateCode}
+                            postal-code={address.PostalCode}
+                            country-options={getMailingCountryOptions}
+                            province-options={getMailingProvinceOptions}
+                            onchange={handleMailingChange}
+                            variant="label-inline"
+                            >
+                        </lightning-input-address>
+                    </div>
+                    <div class="slds-col slds-size_1-of-12" ></div>
+                </template>
+            </template>
+        </template>
+        <template if:false={isEditable}>
+            <template if:true={isBillingAddress}>
+                <div class="slds-col slds-size_11-of-12">
+                    <lightning-input-address
+                        address-label="Street Address"
+                        street-label="Street"
+                        city-label="City"
+                        country-label="Country"
+                        province-label="State/Province"
+                        postal-code-label="Zip/Postal Code"
+                        street={address.Street}
+                        city={address.City}
+                        country={address.CountryCode}
+                        province={address.StateCode}
+                        postal-code={address.PostalCode}
+                        country-options={getBillingCountryOptions}
+                        province-options={getBillingProvinceOptions}
+                        onchange={handleBillingChange}
+                        variant="label-inline"
+                        disabled
+                        >
+                    </lightning-input-address>
+                </div>
+                <div class="slds-col slds-size_1-of-12" ></div>
+            </template>
+            <template if:true={isShippingAddress}>
+                <div class="slds-col slds-size_11-of-12">
+                    <lightning-input-address
+                        address-label="Mailing Address"
+                        street-label="Street"
+                        city-label="City"
+                        country-label="Country"
+                        province-label="State/Province"
+                        postal-code-label="Zip/Postal Code"
+                        street={address.Street}
+                        city={address.City}
+                        country={address.CountryCode}
+                        province={address.StateCode}
+                        postal-code={address.PostalCode}
+                        country-options={getShippingCountryOptions}
+                        province-options={getShippingProvinceOptions}
+                        onchange={handleShippingChange}
+                        variant="label-inline"
+                        disabled
+                        >
+                    </lightning-input-address>
+                </div>
+                <div class="slds-col slds-size_1-of-12" ></div>
+            </template>
+            <template if:true={isMailingAddress}>
+                <div class="slds-col slds-size_11-of-12">
+                    <lightning-input-address
+                        address-label="Mailing Address"
+                        street-label="Street"
+                        city-label="City"
+                        country-label="Country"
+                        province-label="State/Province"
+                        postal-code-label="Zip/Postal Code"
+                        street={address.Street}
+                        city={address.City}
+                        country={address.CountryCode}
+                        province={address.StateCode}
+                        postal-code={address.PostalCode}
+                        country-options={getMailingCountryOptions}
+                        province-options={getMailingProvinceOptions}
+                        onchange={handleMailingChange}
+                        variant="label-inline"
+                        disabled
+                        >
+                    </lightning-input-address>
+                </div>
+                <div class="slds-col slds-size_1-of-12" ></div>
+            </template>
+        </template>
+    </template>
+    <template if:false={isLoadingFinish}>
+        <div class="slds-grid slds-wrap">
+            <div class="slds-col slds-size_12-of-12 slds-box slds-box_small slds-theme_default"> 
+                <lightning-spinner alternative-text="Loading" variant="brand" size="large" style="position:fixed"></lightning-spinner>
+            </div>
+        </div>
+    </template>
+</template>
